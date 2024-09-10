@@ -1,0 +1,18 @@
+.search-results {
+    height: 100vh;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-card{
+    padding: 5px;
+    margin: 8px 0px;
+    min-height: 30rem;
+    width: 20%;
+    border: 1px solid black;
+    font-size: 30px;
+    text-align: center;
+    background-color: rgb(236, 234, 111);
+}
