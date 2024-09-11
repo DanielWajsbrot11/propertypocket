@@ -1,4 +1,4 @@
-<button (click)="getUserId()">Get user id</button>
+<!-- <app-property-card></app-property-card> -->
 <div
     class="search-results"
     infiniteScroll
@@ -10,7 +10,5 @@
     <div class="data-card" *ngFor="let item of items">
         {{item}}
     </div>
-
     <div *ngIf="isLoading">Loading...</div>
-
 </div>

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
+
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrl: './signin.component.scss'
+  selector: 'app-nav-bar',
+  templateUrl: './nav-bar.component.html',
+  styleUrl: './nav-bar.component.scss'
 })
-export class SigninComponent {
+export class NavBarComponent {
   constructor(public angularFireAuth: AngularFireAuth) {}
   logOut() {
     this.angularFireAuth.signOut();

@@ -1,0 +1,15 @@
+<nav>
+    <span>
+        <a routerLink="/">Signin page</a>
+    </span>
+    <span>
+        <a routerLink="/home">Home</a>
+    </span>
+    <span>
+        @if (angularFireAuth.authState | async) {
+            <button (click)="logOut()">Log out</button>
+        } @else {
+            <button googleSso>Sign in with google</button>
+        }
+    </span>
+</nav>

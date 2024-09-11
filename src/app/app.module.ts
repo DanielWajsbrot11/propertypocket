@@ -8,21 +8,20 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-import { environment } from "../environments/environment";
-import { SigninComponent } from './signin/signin.component';
-import { GoogleSsoDirective } from './google-ss.directive';
-import { RequireAuthComponent } from './require-auth/require-auth.component';
+import { environment } from "../environments/environment";import { GoogleSsoDirective } from './google-ss.directive';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { bearerTokenInterceptor } from './bearer-token.interceptor';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { PropertyCardComponent } from './components/property-card/property-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NgxInfiniteScrollComponent,
-    SigninComponent,
     GoogleSsoDirective,
-    RequireAuthComponent
+    NavBarComponent,
+    PropertyCardComponent,
   ],
   imports: [
     AngularFireAuthModule,
