@@ -14,6 +14,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { bearerTokenInterceptor } from './bearer-token.interceptor';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PropertyCardComponent } from './components/property-card/property-card.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PropertyCardComponent } from './components/property-card/property-card.
     GoogleSsoDirective,
     NavBarComponent,
     PropertyCardComponent,
+    LandingComponent,
   ],
   imports: [
     AngularFireAuthModule,
