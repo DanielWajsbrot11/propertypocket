@@ -5,7 +5,6 @@ import { LandingComponent } from './components/landing/landing.component';
 import { authGuard } from './auth.guard';
 
 const routes: Routes = [
-  {path:"/", component: LandingComponent},
   {
     path: 'home',
     component: NgxInfiniteScrollComponent,
