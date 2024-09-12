@@ -4,7 +4,6 @@
 
 export const environment =  {
     production: false,
-    // supposing you have a backend where to send some requests
     backendUrl: "http://localhost:4200/",
     firebaseConfig:{
         apiKey: "AIzaSyBqSeeqkSJUzAZKhEL_UTMKO9HNwiIXVws",
