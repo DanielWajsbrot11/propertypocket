@@ -7,7 +7,9 @@ nav{
     height: 10vh;
     padding: 0rem 1rem;
     background: rgb(50, 50, 198);
-    color: aliceblue;
+    color: #EFF3F8;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 a{
@@ -17,6 +19,7 @@ a{
 input{
     border-radius: 1rem;
     padding: 0.5rem 1rem;
+    color: black;
 }
 
 .nav-links-container{
