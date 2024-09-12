@@ -17,28 +17,31 @@ type card = {
 
 export class PaginationDummyService {
 
-  private totalItems=12;
-
-  private items: any[] = []; 
+  private totalItems=1000;
   private data: card[] = [];
 
   getItems(page=1,itemsPerPage=10):Observable<card[]>{
+
    const startIndex=(page-1)*itemsPerPage;
    const endIndex=startIndex+itemsPerPage;
-   
-   this.backendService.returnData().map((listing) => {
-      this.data.push(listing);
-   })
 
-   this.totalItems = this.data.length;
+   let items: card[] = []; 
 
+   // Move items from data to temp array and return temp array.
    for(let i=startIndex;i<endIndex;i++){
-    if(i<this.totalItems){
-      this.items.push(this.data[i]);
-    }
+    if(i<this.totalItems)
+      items.push(this.data[i]);
    }
-   return of(this.items).pipe(delay(500));
+   
+   return of(items).pipe(delay(500));
   }
 
-  constructor(private backendService: BackendService) {}
+  // Load the data in the constructor, so api calls aren't made repeatedly.
+  constructor(private backendService: BackendService) {
+
+    this.backendService.returnData().map((listing) => {
+      this.data.push(listing);
+   })
+   this.totalItems = this.data.length;
+  }
 }
