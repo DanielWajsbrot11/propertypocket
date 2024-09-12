@@ -16,6 +16,10 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PropertyCardComponent } from './components/property-card/property-card.component';
 import { LandingComponent } from './components/landing/landing.component';
 
+
+// The following site shows authentication
+// https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
+
 @NgModule({
   declarations: [
     AppComponent,

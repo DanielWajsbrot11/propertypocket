@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { PaginationDummyService } from '../../services/pagination-dummy.service';
 import { ApiService } from "../../api/api.service";
 
+
+// Infinite Scroll copied and pasted from the following links:
+// https://www.youtube.com/watch?v=3IFyMCWziq4
+// https://github.com/rd003/angular-23
+
+
 @Component({
   selector: 'app-ngx-infinite-scroll',
   templateUrl: './ngx-infinite-scroll.component.html',

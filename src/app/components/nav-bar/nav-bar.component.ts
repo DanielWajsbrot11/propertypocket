@@ -6,6 +6,10 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
+
+// The following site shows authentication
+// https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
+
 export class NavBarComponent {
   
   constructor(public angularFireAuth: AngularFireAuth) {

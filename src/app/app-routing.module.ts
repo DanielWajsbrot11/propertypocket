@@ -11,6 +11,9 @@ const routes: Routes = [
   },
 ];
 
+// The following site shows authentication
+// https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
