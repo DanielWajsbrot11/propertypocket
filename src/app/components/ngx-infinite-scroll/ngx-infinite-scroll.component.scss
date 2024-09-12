@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.search-results::-webkit-scrollbar{
+    display: none;
+}
+
 .data-card{
     padding: 5px;
     margin: 8px 0px;

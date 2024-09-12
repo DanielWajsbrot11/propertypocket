@@ -1,0 +1,24 @@
+.main-hero{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    width: 100%;
+}
+
+.sidebar-container{
+    width: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.feed-container{
+    width: 100%;
+    background-color: #EFF3F8;
+    flex-direction: column;
+    align-items: center;
+    // border-top-left-radius: 1rem;
+    // border-top-right-radius: 1rem;
+    overflow-y: hidden;
+
+}

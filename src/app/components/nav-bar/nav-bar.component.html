@@ -1,11 +1,11 @@
 <nav>
-    <span>
-        <a routerLink="/">Signin page</a>
+    <span class="nav-links-container">
+        <a routerLink="/home">Property Pocket</a>
     </span>
-    <span>
-        <a routerLink="/home">Home</a>
+    <span class="zip-search-container">
+        <input class="zip-search-bar" type="search" placeholder="Enter Zip Code"/>
     </span>
-    <span>
+    <span class="login-btn-container">
         @if (angularFireAuth.authState | async) {
             <button (click)="logOut()">Log out</button>
         } @else {
