@@ -15,9 +15,6 @@ import { bearerTokenInterceptor } from './bearer-token.interceptor';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PropertyCardComponent } from './components/property-card/property-card.component';
 import { LandingComponent } from './components/landing/landing.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-
-import {MenubarModule} from "primeng/menubar"
 
 @NgModule({
   declarations: [
@@ -27,7 +24,6 @@ import {MenubarModule} from "primeng/menubar"
     NavBarComponent,
     PropertyCardComponent,
     LandingComponent,
-    SidebarComponent,
   ],
   imports: [
     AngularFireAuthModule,
@@ -35,7 +31,6 @@ import {MenubarModule} from "primeng/menubar"
     BrowserModule,
     AppRoutingModule,
     InfiniteScrollDirective,
-    MenubarModule,
   ],
   providers: [provideHttpClient(withInterceptors([bearerTokenInterceptor]))],
   bootstrap: [AppComponent]
