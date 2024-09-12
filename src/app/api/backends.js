@@ -1,4 +1,5 @@
 // Chat-GPT showed how to create and load environment variables in Javascript.
+// Chat-GPT also showed how to access env variables stored in Firebase. 
 require('dotenv').config()
 
 // API calls copied and pasted from Rapid API Zillow API code snippet
