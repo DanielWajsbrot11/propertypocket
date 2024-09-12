@@ -12,6 +12,12 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 
 export class NavBarComponent {
   
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
   constructor(public angularFireAuth: AngularFireAuth) {
   }
   
