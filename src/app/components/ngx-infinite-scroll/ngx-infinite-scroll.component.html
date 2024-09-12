@@ -7,8 +7,11 @@
     (scrolled)="onScroll()"
     [scrollWindow]="false"
 >
+<!-- ChatGPT showed how to access properties of an item and insert child components. -->
     <div class="data-card" *ngFor="let item of items">
-        {{item}}
+        <!-- {{item.name}}
+        {{item.price}} -->
+    <app-property-card [listing]="item"></app-property-card>
     </div>
     <div *ngIf="isLoading">Loading...</div>
 </div>

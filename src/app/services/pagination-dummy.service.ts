@@ -17,12 +17,12 @@ type card = {
 
 export class PaginationDummyService {
 
-  private totalItems=100;
+  private totalItems=12;
 
   private items: any[] = []; 
   private data: card[] = [];
 
-  getItems(page=1,itemsPerPage=10):Observable<string[]>{
+  getItems(page=1,itemsPerPage=10):Observable<card[]>{
    const startIndex=(page-1)*itemsPerPage;
    const endIndex=startIndex+itemsPerPage;
    

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginationDummyService } from '../../services/pagination-dummy.service';
-import { ApiService } from "../../api/api.service";
+import { ApiService } from "../../services/api.service";
 
+type card = {
+  "name": string,
+  "price": number
+};
 
 // Infinite Scroll copied and pasted from the following links:
 // https://www.youtube.com/watch?v=3IFyMCWziq4
@@ -14,21 +18,15 @@ import { ApiService } from "../../api/api.service";
   styleUrls: ['./ngx-infinite-scroll.component.scss']
 })
 export class NgxInfiniteScrollComponent implements OnInit {
-  items:string[]=[];
+
+  items:card[] = [];
   isLoading=false;
   currentPage=1;
   itemsPerPage=10;
 
+
   toggleLoading = ()=>{this.isLoading = !this.isLoading;}
 
-  loadData = ()=>{
-    this.toggleLoading();
-    this.paginationService.getItems(this.currentPage, this.itemsPerPage).subscribe({
-      next: response=>this.items = response,
-      error: err=>console.log(err),
-      complete: ()=>this.toggleLoading()
-    })
-  }
 
   getUserId() {
     console.log("loading request...")
@@ -39,7 +37,12 @@ export class NgxInfiniteScrollComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadData();
+    this.toggleLoading();
+    this.paginationService.getItems(this.currentPage, this.itemsPerPage).subscribe({
+      next: response=>this.items = response,
+      error: err=>console.log(err),
+      complete: ()=>this.toggleLoading()
+    })
   }
 
   appendData=()=>{
