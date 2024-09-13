@@ -8,10 +8,19 @@
     [scrollWindow]="false"
 >
 <!-- ChatGPT showed how to access properties of an item and insert child components. -->
-    <div class="data-card" *ngFor="let item of items">
-        <!-- {{item.name}}
-        {{item.price}} -->
-        <app-property-card [listing]="item"></app-property-card>
-    </div>
+    <!-- <div class="flip-card"> -->
+        <div class="data-card flip-card" *ngFor="let item of items">
+            <!-- {{item.name}}
+            {{item.price}} -->
+            <div class="flip-card-inner ">
+                <div class="flip-card-front">
+                    <img class="h-8 w-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/4926/4926625.png" alt="">
+                </div>
+                <div class="flip-card-back">
+                    <app-property-card [listing]="item"></app-property-card>
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
     <div *ngIf="isLoading">Loading...</div>
 </div>
