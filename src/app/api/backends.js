@@ -1,6 +1,9 @@
-// Chat-GPT showed how to create and load environment variables in Javascript.
+
 // Chat-GPT also showed how to access env variables stored in Firebase.
-require('dotenv').config()
+// Other sites like https://www.reddit.com/r/angular/comments/vkmg4c/hiding_api_key_in_angular_web_app/
+// reccommend not storing keys inside Angular itself. 
+const keys = require("firebase-functions");
+const zillowKey = functions.config().zillow.key;
 
 // API calls copied and pasted from Rapid API Zillow API code snippet
 // https://rapidapi.com/s.mahmoud97/api/zillow56/playground/apiendpoint_444379e9-126c-4fd2-b584-1c9c355e3d8f
@@ -12,7 +15,7 @@ require('dotenv').config()
 // const options = {
 // 	method: 'GET',
 // 	headers: {
-// 		'x-rapidapi-key': 'process.env.API_KEY',
+// 		'x-rapidapi-key': 'zillowKey',
 // 		'x-rapidapi-host': 'zillow56.p.rapidapi.com'
 // 	}
 // };
