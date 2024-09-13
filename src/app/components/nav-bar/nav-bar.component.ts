@@ -7,9 +7,6 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
   styleUrl: './nav-bar.component.scss'
 })
 
-// The following site shows authentication
-// https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
-
 export class NavBarComponent {
   
   isMenuOpen = false;

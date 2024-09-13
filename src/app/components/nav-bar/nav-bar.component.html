@@ -14,7 +14,7 @@
     </span>
 </nav> -->
 
-<nav class="bg-white shadow-md">
+<nav class="bg-white shadow-md rounded-b-2xl">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex">
@@ -23,24 +23,13 @@
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
               <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
-            <span class="ml-2 text-xl font-bold text-emerald-600">Property Pocket</span>
-          </div>
-          <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-            <a href="#" class="border-emerald-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-              For You
-            </a>
-            <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-              Explore
-            </a>
-            <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-              Saved
-            </a>
+            <a routerLink="/" class="ml-2 text-xl font-bold text-emerald-600">Property Pocket</a>
           </div>
         </div>
         <div class="hidden sm:ml-6 sm:flex sm:items-center w-1/2">
           <div class="relative w-full px-10">
             <input
-              type="text"
+              type="number"
               placeholder="Search properties"
               class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
             />
@@ -57,10 +46,19 @@
           </button>
           <div class="ml-3 relative">
             <div>
-              <button class="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500" id="user-menu" aria-expanded="false" aria-haspopup="true">
-                <span class="sr-only">Open user menu</span>
-                <img class="h-8 w-8 rounded-full" src="https://github.com/shadcn.png" alt="">
-              </button>
+              @if (angularFireAuth.authState | async) {
+                <!-- <button (click)="logOut()">Log out</button> -->
+                <button (click)="logOut()" class="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500" id="user-menu" aria-expanded="false" aria-haspopup="true">
+                  <span class="sr-only">Open user menu</span>
+                  <img class="h-8 w-8 rounded-full" src="https://github.com/shadcn.png" alt="">
+                </button>
+              } @else {
+                  <!-- <button googleSso>Sign in with google</button> -->
+                  <button googleSso class="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500" id="user-menu" aria-expanded="false" aria-haspopup="true">
+                    <span class="sr-only">Open user menu</span>
+                    <img class="h-8 w-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/4926/4926625.png" alt="">
+                  </button>
+              }
             </div>
           </div>
         </div>

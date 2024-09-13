@@ -11,7 +11,7 @@
     <div class="data-card" *ngFor="let item of items">
         <!-- {{item.name}}
         {{item.price}} -->
-    <app-property-card [listing]="item"></app-property-card>
+        <app-property-card [listing]="item"></app-property-card>
     </div>
     <div *ngIf="isLoading">Loading...</div>
 </div>
