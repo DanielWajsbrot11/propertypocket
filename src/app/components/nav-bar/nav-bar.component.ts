@@ -15,9 +15,8 @@ export class NavBarComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  constructor(public angularFireAuth: AngularFireAuth) {
-  }
-  
+  constructor(public angularFireAuth: AngularFireAuth) {}
+
   logOut() {
     this.angularFireAuth.signOut();
   }

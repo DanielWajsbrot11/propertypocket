@@ -1,15 +1,8 @@
 .main-hero{
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    width: 100%;
-}
-
-.sidebar-container{
-    width: 5%;
-    display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .feed-container{
@@ -17,5 +10,4 @@
     flex-direction: column;
     align-items: center;
     overflow-y: hidden;
-
 }
