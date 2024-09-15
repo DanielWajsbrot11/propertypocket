@@ -24,9 +24,7 @@ export class NgxInfiniteScrollComponent implements OnInit {
   currentPage=1;
   itemsPerPage=10;
 
-
   toggleLoading = ()=>{this.isLoading = !this.isLoading;}
-
 
   getUserId() {
     console.log("loading request...")

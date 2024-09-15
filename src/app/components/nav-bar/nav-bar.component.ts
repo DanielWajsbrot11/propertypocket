@@ -14,7 +14,7 @@ export class NavBarComponent {
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
-
+  
   constructor(public angularFireAuth: AngularFireAuth) {}
 
   logOut() {

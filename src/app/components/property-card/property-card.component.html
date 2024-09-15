@@ -1,4 +1,26 @@
 <!-- Chat-GPT showed how to access properties of object with the . operator -->
-<p>Property card works!</p>
+<!-- <p>Property card works!</p>
 <p>{{listing.name}}</p>
-<p>{{listing.price}}</p>
+<p>{{listing.price}}</p> -->
+
+<div class="property-card">
+    <div class="property-details">
+      <h2 class="property-name">{{listing.name}}</h2>
+      <p class="property-price">{{listing.price | currency:'USD':'symbol':'1.0-0'}}</p>
+      <p class="property-address">listing.address</p>
+    </div>
+</div>
+<div class="property-card">
+    <div class="property-features">
+        <span>
+          <i class="fas fa-bed"></i> 3 beds
+        </span>
+        <span>
+          <i class="fas fa-bath"></i> 2 baths
+        </span>
+        <span>
+          <i class="fas fa-vector-square"></i>3,000 sqft
+        </span>
+        <p>more info</p>
+    </div>
+</div>
