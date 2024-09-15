@@ -1,1 +1,25 @@
-<div></div>
+<div class="landing">
+    <h1>PropertyPocket</h1>
+    
+    <div class="search-container">
+        <input 
+          type="text" 
+          [value]="zipCode" 
+          placeholder="Enter zip code" 
+          (input)="onInputChange($event)" 
+          (keyup.enter)="searchProperties()"
+        >
+        <button (click)="searchProperties()">Search</button>
+      </div>
+      
+    
+    <div class="recent-properties">
+      <h2>Recently Viewed Properties</h2>
+      <div class="property-icons">
+        <div *ngFor="let property of recentProperties" class="property-icon">
+          <i class="material-icons">{{property.icon}}</i>
+          <span>{{property.name}}</span>
+        </div>
+      </div>
+    </div>
+  </div>

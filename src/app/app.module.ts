@@ -16,6 +16,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PropertyCardComponent } from './components/property-card/property-card.component';
 import { LandingComponent } from './components/landing/landing.component';
 
+import { FormsModule } from '@angular/forms';
+
 
 // The following site shows authentication
 // https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
@@ -35,6 +37,7 @@ import { LandingComponent } from './components/landing/landing.component';
     BrowserModule,
     AppRoutingModule,
     InfiniteScrollDirective,
+    FormsModule
   ],
   providers: [provideHttpClient(withInterceptors([bearerTokenInterceptor]))],
   bootstrap: [AppComponent]
