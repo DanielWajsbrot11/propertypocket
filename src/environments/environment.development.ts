@@ -7,7 +7,7 @@ export const environment =  {
     backendUrl: "http://localhost:4200/",
     firebaseConfig:{
         apiKey: "AIzaSyBqSeeqkSJUzAZKhEL_UTMKO9HNwiIXVws",
-        authDomain: "property-pocket.firebaseapp.com",
+        authDomain: "property-pocket.web.app",
         projectId: "property-pocket",
         storageBucket: "property-pocket.appspot.com",
         messagingSenderId: "398287900977",
