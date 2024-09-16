@@ -1,5 +1,5 @@
 
-// The following site shows authentication
+// The following site shows authentication. Also, Firebase console settings shows the following code.
 // https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
 
 export const environment =  {

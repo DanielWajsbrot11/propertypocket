@@ -15,6 +15,8 @@ export class NavBarComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
   
+  // The following site shows authentication with signing out. 
+  // https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
   constructor(public angularFireAuth: AngularFireAuth) {}
 
   logOut() {
