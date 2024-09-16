@@ -1,4 +1,9 @@
 <!-- Chat-GPT showed how to access properties of object with the . operator -->
-<p>Property card works!</p>
-<p>{{listing.name}}</p>
-<p>{{listing.price}}</p>
+<!-- property-card.component.html -->
+<!-- current usage is changed to allow for the bookmarkclick function to work. Remove DIV to reset -->
+<div class="PropertyCardComponent" (click)="onBookmarkClick()">
+    <p>Property card works!</p>
+    <p>{{listing.name}}</p>
+    <p>{{listing.price}}</p>
+</div>
+  

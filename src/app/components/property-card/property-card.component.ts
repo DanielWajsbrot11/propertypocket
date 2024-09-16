@@ -1,18 +1,48 @@
 import { Component, Input } from '@angular/core';
+import { ApiService } from '../../services/api.service';
 
-type card = {
-  "name" : string,
-  "price": number
+type Card = {
+  name: string;
+  price: number;
+  zpid: string;
 }
 
 @Component({
   selector: 'app-property-card',
   templateUrl: './property-card.component.html',
-  styleUrl: './property-card.component.scss'
+  styleUrls: ['./property-card.component.scss']  
 })
 export class PropertyCardComponent {
+  @Input() listing: Card = { name: "", price: 0, zpid: "" };
 
-  // Chat-GPT showed how to accept input from a parent component here.
-  @Input() listing: card = {"name" : "", "price" : 0};
+  constructor(private apiService: ApiService) {}
 
+  onBookmarkClick() {
+    if (this.listing.zpid) {
+      this.apiService.makeBookmark(this.listing.zpid)
+        .then(() => {
+          console.log('Bookmark added successfully!');
+        })
+        .catch((error) => {
+          console.error('Error storing bookmark:', error);
+        });
+    } else {
+      console.error('ZPID is not available');
+    }
+  }
+
+  onLikeClick() {
+    if (this.listing.zpid) {
+      this.apiService.makeLike(this.listing.zpid)
+        .then(() => {
+          console.log('Like added successfully!');
+        })
+        .catch((error) => {
+          console.error('Error storing like:', error);
+        });
+    } else {
+      console.error('ZPID is not available');
+    }
+  }
+  
 }

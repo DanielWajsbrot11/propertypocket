@@ -4,7 +4,8 @@ import { ApiService } from "../../services/api.service";
 
 type card = {
   "name": string,
-  "price": number
+  "price": number,
+  "zpid": string
 };
 
 // Infinite Scroll copied and pasted from the following links:

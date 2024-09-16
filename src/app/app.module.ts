@@ -9,6 +9,8 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { environment } from "../environments/environment";import { GoogleSsoDirective } from './google-ss.directive';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { bearerTokenInterceptor } from './bearer-token.interceptor';
@@ -32,6 +34,7 @@ import { LandingComponent } from './components/landing/landing.component';
   imports: [
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     BrowserModule,
     AppRoutingModule,
     InfiniteScrollDirective,

@@ -5,6 +5,7 @@ import { BackendService } from './backend.service';
 type card = {
   "name": string,
   "price": number,
+  "zpid": string
 }
 
 @Injectable({
