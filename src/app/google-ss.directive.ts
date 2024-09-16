@@ -13,6 +13,7 @@ export class GoogleSsoDirective {
   constructor(private angularFireAuth: AngularFireAuth) {}
   @HostListener("click")
   async onClick() {
+    console.log("Auth clicked");
     const creds = await this.angularFireAuth.signInWithPopup(
       new GoogleAuthProvider(),
     );
