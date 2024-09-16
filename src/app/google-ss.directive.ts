@@ -3,7 +3,8 @@ import { Directive, HostListener } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { GoogleAuthProvider } from "@firebase/auth";
 
-// The following site shows authentication. Also, Firebase Gemini helped with debugging.
+// The following site shows authentication. Also, Firebase Gemini and Chat-GPT helped with debugging when it came to Firebase API key
+// in the environments.ts files.
 // https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
 
 @Directive({
