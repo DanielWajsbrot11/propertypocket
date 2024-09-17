@@ -44,5 +44,62 @@ export class PropertyCardComponent {
       console.error('ZPID is not available');
     }
   }
+
+  onUnmarkClick() {
+    if (this.listing.zpid) {
+      this.apiService.deleteBookmark(this.listing.zpid)
+        .then(() => {
+          console.log('Bookmark Removed!');
+        })
+        .catch((error) => {
+          console.error('Error deleting:', error);
+        });
+    } else {
+      console.error('ZPID is not available');
+    }
+  }
+
+  onUnlikeClick() {
+    if (this.listing.zpid) {
+      this.apiService.deleteLike(this.listing.zpid)
+        .then(() => {
+          console.log('Like Removed!');
+        })
+        .catch((error) => {
+          console.error('Error deleting:', error);
+        });
+    } else {
+      console.error('ZPID is not available');
+    }
+  }
+
+  onGetMarksClick() {
+    if (this.listing.zpid) {
+      this.apiService.getBookmarks()
+        .then(() => {
+          console.log('Bookmarks Retrieved!');
+        })
+        .catch((error) => {
+          console.error('Error deleting:', error);
+        });
+    } else {
+      console.error('ZPID is not available');
+    }
+  }
+
+  onGetLikesClick() {
+    if (this.listing.zpid) {
+      this.apiService.getLikes()
+        .then(() => {
+          console.log('Likes Retrieved!');
+        })
+        .catch((error) => {
+          console.error('Error deleting:', error);
+        });
+    } else {
+      console.error('ZPID is not available');
+    }
+  }
+  
   
 }

@@ -9,7 +9,6 @@ import { Timestamp } from 'firebase/firestore';
 // chatGPT helped with design of functions/error handling
 // logic was provided through firestore docs
 
-
 @Injectable({
   providedIn: "root",
 })
@@ -71,8 +70,62 @@ export class ApiService {
       throw new Error('User not authenticated');
     }
   }
-  // still need to make it so that chronological return works everytime, currently not fully functional 
-  /*
+
+  async deleteBookmark(zpid: string): Promise<void> {
+    const user = await this.afAuth.currentUser;
+  
+    if (user) {
+      const userID = user.uid;
+  
+      const bookmarksRef = this.firestore.collection('Bookmark');
+  
+      const querySnapshot = await bookmarksRef.ref
+        .where('userID', '==', userID)
+        .where('zpid', '==', zpid)
+        .get();
+  
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach(async (doc) => {
+          await doc.ref.delete();
+          console.log(`Bookmark for ZPID: ${zpid} has been deleted.`);
+        });
+      } else {
+        console.log('No bookmark found to delete.');
+      }
+    } else {
+      console.error('User not authenticated');
+      throw new Error('User not authenticated');
+    }
+  }
+
+  async deleteLike(zpid: string): Promise<void> {
+    const user = await this.afAuth.currentUser;
+  
+    if (user) {
+      const userID = user.uid;
+  
+      const bookmarksRef = this.firestore.collection('Like');
+  
+      const querySnapshot = await bookmarksRef.ref
+        .where('userID', '==', userID)
+        .where('zpid', '==', zpid)
+        .get();
+  
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach(async (doc) => {
+          await doc.ref.delete();
+          console.log(`Like for ZPID: ${zpid} has been deleted.`);
+        });
+      } else {
+        console.log('No bookmark found to delete.');
+      }
+    } else {
+      console.error('User not authenticated');
+      throw new Error('User not authenticated');
+    }
+  }
+
+  // works I think, end of array is oldest and front is newest. 
   async getBookmarks(){
     const user = await this.afAuth.currentUser;
     if (user) {
@@ -101,8 +154,41 @@ export class ApiService {
       }
     } else {
       console.log('user needs to login')
+      return;
     }
   }
-  */
+
+  async getLikes(){
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      const userID = user.uid;
+      const bookmarksRef = this.firestore.collection('Like');
+      const bookmarksSnapshot = await bookmarksRef.ref.where('userID', '==', userID).get();
+
+      let zpids: string[] = [];
+
+      if (bookmarksSnapshot.empty) {
+        console.log('No bookmarks found');
+        return [];
+      } else {
+        const bookmarks = bookmarksSnapshot.docs.map(doc => {
+          const data = doc.data() as { zpid: string; userID: string; time: Timestamp;};
+          return {
+            zpid: data.zpid,
+            time: data.time
+          };
+        });
+
+        bookmarks.sort((a, b) => b.time.toMillis() - a.time.toMillis());
+
+        console.log('Likes sorted by timestamp:', bookmarks);
+        return bookmarks;
+      }
+    } else {
+      console.log('user needs to login')
+      return;
+    }
+  }
+  
 }
 
