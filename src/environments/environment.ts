@@ -9,5 +9,6 @@
 
 export const environment = {
     production: true,
+    backend: "dummy",
     firebaseConfig: {},
 };
