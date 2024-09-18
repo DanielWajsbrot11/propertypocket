@@ -1,9 +1,4 @@
-import { Component, Input } from '@angular/core';
-
-type card = {
-  "name" : string,
-  "price": number
-}
+import { Component, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-property-card',
@@ -13,6 +8,7 @@ type card = {
 export class PropertyCardComponent {
 
   // Chat-GPT showed how to accept input from a parent component here.
-  @Input() listing: card = {"name" : "", "price" : 0};
+  @Input() listing: any;
+
 
 }

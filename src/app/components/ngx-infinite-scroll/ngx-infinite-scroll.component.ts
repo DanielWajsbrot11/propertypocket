@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PaginationDummyService } from '../../services/pagination-dummy.service';
 import { ApiService } from "../../services/api.service";
 
-type card = {
-  "name": string,
-  "price": number
-};
 
 // Infinite Scroll copied and pasted from the following links:
 // https://www.youtube.com/watch?v=3IFyMCWziq4
@@ -19,7 +15,7 @@ type card = {
 })
 export class NgxInfiniteScrollComponent implements OnInit {
 
-  items:card[] = [];
+  items: any[] = [];
   isLoading=false;
   currentPage=1;
   itemsPerPage=10;
@@ -34,18 +30,20 @@ export class NgxInfiniteScrollComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  // Chat-GPT for debugging.
+  async ngOnInit(): Promise<void> {
     this.toggleLoading();
-    this.paginationService.getItems(this.currentPage, this.itemsPerPage).subscribe({
-      next: response=>this.items = response,
+    this.paginationService.setZipCode("34683");
+    (await this.paginationService.getItems(this.currentPage, this.itemsPerPage)).subscribe({
+      next: response=>{this.items = response; console.log(`Items returned ${this.items}`); console.log(this.items.length);},
       error: err=>console.log(err),
       complete: ()=>this.toggleLoading()
     })
   }
 
-  appendData=()=>{
+  async appendData(): Promise<void> {
     this.toggleLoading();
-    this.paginationService.getItems(this.currentPage,this.itemsPerPage).subscribe({
+    (await this.paginationService.getItems(this.currentPage, this.itemsPerPage)).subscribe({
       next:response=>this.items = [...this.items,...response],
       error:err=>console.log(err),
       complete:()=>this.toggleLoading()
