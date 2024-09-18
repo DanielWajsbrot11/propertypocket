@@ -1,6 +1,6 @@
 
 
-// The following site shows authentication
+// The following site shows authentication and is copied from there.
 // https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
 
 
