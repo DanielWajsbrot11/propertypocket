@@ -11,7 +11,7 @@
     <div class="data-card flip-card" *ngFor="let item of items">
         <div class="flip-card-inner ">
             <div class="flip-card-front">
-                <img class="h-8 w-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/4926/4926625.png" alt="">
+                <app-property-card-cover [listing]="item"></app-property-card-cover>
             </div>
             <div class="flip-card-back">
                 <app-property-card [listing]="item"></app-property-card>
