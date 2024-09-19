@@ -2,7 +2,7 @@
 
 <div class="property-card">
     <div class="property-details">
-      <h2 class="property-name">{{listing.streetAddress}}</h2>
+      <h2 class="property-name">{{listing.streetAddress}}, {{listing.city}}, {{listing.state}}</h2>
       <p class="property-price">{{listing.price | currency:'USD':'symbol':'1.0-0'}}</p>
       <p class="property-address">{{listing.zpid}}</p>
       <!-- <img src="{{listing?.imgSrc}}" alt=""> -->

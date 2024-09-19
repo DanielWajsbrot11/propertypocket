@@ -52,8 +52,10 @@ export class BackendService {
       for (let i = 0; i < properties.length; i++)
             allProperties.push(properties[i]);
 
-      let pages: number = result.totalPages;
+      // let pages: number = result.totalPages;
+      let pages = 2;
 
+      // Change pages later to result.totalPages
       for (let page = 2; page <= pages; page++) {
 
         // Chat-GPT for sleep timer

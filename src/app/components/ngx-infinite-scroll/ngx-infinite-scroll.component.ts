@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginationDummyService } from '../../services/pagination-dummy.service';
 import { ApiService } from "../../services/api.service";
+import { ZipRetrieval } from '../../services/zipRetrieval.service';
+import { from, Subscription, switchMap, tap } from 'rxjs';
 
 
 // Infinite Scroll copied and pasted from the following links:
@@ -19,8 +21,10 @@ export class NgxInfiniteScrollComponent implements OnInit {
   isLoading=false;
   currentPage=1;
   itemsPerPage=10;
+  zip = "";
+  private submissionSubscription: Subscription | null = null; // Chat-GPT
 
-  toggleLoading = ()=>{this.isLoading = !this.isLoading;}
+  toggleLoading = () => {this.isLoading = !this.isLoading}
 
   getUserId() {
     console.log("loading request...")
@@ -30,23 +34,43 @@ export class NgxInfiniteScrollComponent implements OnInit {
     });
   }
 
-  // Chat-GPT for debugging.
+  // Chat-GPT for handling state managemnt with zip. Also, used for debugging.
   async ngOnInit(): Promise<void> {
-    this.toggleLoading();
-    this.paginationService.setZipCode("34683");
-    (await this.paginationService.getItems(this.currentPage, this.itemsPerPage)).subscribe({
-      next: response=>{this.items = response; console.log(`Items returned ${this.items}`); console.log(this.items.length);},
-      error: err=>console.log(err),
-      complete: ()=>this.toggleLoading()
-    })
+
+    this.zipRetrieval.zipValue.subscribe((zip) => this.zip = zip);
+
+    this.submissionSubscription = this.zipRetrieval.zipSubmitted.pipe(
+      tap(() => this.toggleLoading()),  // Chat-GPT for tap and loading logic here and in complete.
+
+      switchMap(() => {
+
+        this.paginationService.setZipCode(this.zip);
+        
+        return from(this.paginationService.callZillowAPI()).pipe(
+          switchMap(() => {
+            console.log(this.isLoading);
+            return this.paginationService.getItems(this.currentPage, this.itemsPerPage);
+          })
+        );
+      })
+      ).subscribe({
+        next: (response: any)=>{this.items = response; 
+          console.log(`response is`); 
+          console.table(this.items); 
+          console.log(this.paginationService.getZip());
+          this.toggleLoading();
+          console.log(this.isLoading);
+      },
+        error: (err: any)=>console.log(err),
+      });
   }
 
   async appendData(): Promise<void> {
     this.toggleLoading();
-    (await this.paginationService.getItems(this.currentPage, this.itemsPerPage)).subscribe({
+    this.paginationService.getItems(this.currentPage, this.itemsPerPage).subscribe({
       next:response=>this.items = [...this.items,...response],
       error:err=>console.log(err),
-      complete:()=>this.toggleLoading()
+      complete:() => this.toggleLoading()
     })
   }
 
@@ -55,5 +79,16 @@ export class NgxInfiniteScrollComponent implements OnInit {
     this.appendData();
   }
 
-  constructor(private paginationService:PaginationDummyService, private apiService: ApiService){}
+  // Chat-GPT
+  ngOnDestroy() {
+
+    if (this.submissionSubscription) {
+      this.submissionSubscription.unsubscribe();
+    }
+  }
+
+
+
+  constructor(private paginationService:PaginationDummyService, private apiService: ApiService,
+    private zipRetrieval: ZipRetrieval ){}
 }

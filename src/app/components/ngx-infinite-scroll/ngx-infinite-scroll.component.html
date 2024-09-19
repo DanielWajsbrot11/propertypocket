@@ -1,3 +1,8 @@
+<!-- Some of the HTML below taken from these sources:
+ https://www.youtube.com/watch?v=3IFyMCWziq4
+ https://github.com/rd003/angular-23
+ -->
+
 <div
     class="search-results"
     infiniteScroll
@@ -8,6 +13,8 @@
 >
 
 <!-- ChatGPT showed how to do conditional loading, debugging, and insert child components. -->
+    <p *ngIf="zip === ''">Enter a valid zip code.</p>
+    <div class="loader" *ngIf="isLoading && zip !== ''"></div>
     <div class="data-card flip-card" *ngFor="let item of items">
         <div class="flip-card-inner ">
             <div class="flip-card-front">
@@ -18,5 +25,5 @@
             </div>
         </div>
     </div>
-    <div class="loader" *ngIf="isLoading"></div>
+    <div class="loader" *ngIf="isLoading && items.length !== 0 && zip !== ''"></div>
 </div>

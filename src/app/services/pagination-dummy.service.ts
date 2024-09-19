@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, Observable, of} from 'rxjs';
+import { delay, of, Observable} from 'rxjs';
 import { BackendService } from './backend.service';
 
 
@@ -17,14 +17,9 @@ export class PaginationDummyService {
   private data: any[] = [];
   private zipcode = "";
 
-  async getItems(page=1,itemsPerPage=10):Promise<Observable<any[]>>{
-
-    // Only make api call if data hasn't been loaded yet, aka on initialization.
-    // Chat-GPT for debugging.
-    if (this.data.length === 0) {
-      this.data = await this.backendService.returnListings(this.zipcode);
-    }
-
+  // Chat-GPT for debugging and for understanding Promise versus Observable.
+  getItems(page=1,itemsPerPage=10): Observable<any[]>{
+  
    const startIndex=(page-1)*itemsPerPage;
    const endIndex=startIndex+itemsPerPage;
 
@@ -36,12 +31,16 @@ export class PaginationDummyService {
       items.push(this.data[i]);
    }
    
-   console.log(`Response is returning ${items.length}`)
    return of(items).pipe(delay(500));
+  }
+
+  async callZillowAPI() : Promise<void>{
+    this.data = await this.backendService.returnListings(this.zipcode);
   }
 
   // Chat-GPT suggested a setter function for changing a parameter instead of a constructor.
   setZipCode(zipcode: string) {this.zipcode = zipcode};
+  getZip(){return this.zipcode};
 
   // Load the data in the constructor, so api calls aren't made repeatedly.
   constructor(private backendService: BackendService) {}
