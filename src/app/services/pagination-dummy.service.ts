@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, of, Observable} from 'rxjs';
-import { BackendService } from './backend.service';
+import { ApiService } from './api.service';
 
 
 @Injectable({
@@ -35,7 +35,7 @@ export class PaginationDummyService {
   }
 
   async callZillowAPI() : Promise<void>{
-    this.data = await this.backendService.returnListings(this.zipcode);
+    this.data = await this.apiService.returnListings(this.zipcode);
   }
 
   // Chat-GPT suggested a setter function for changing a parameter instead of a constructor.
@@ -43,5 +43,5 @@ export class PaginationDummyService {
   getZip(){return this.zipcode};
 
   // Load the data in the constructor, so api calls aren't made repeatedly.
-  constructor(private backendService: BackendService) {}
+  constructor(private apiService: ApiService) {}
 }

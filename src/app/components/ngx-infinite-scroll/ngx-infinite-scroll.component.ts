@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginationDummyService } from '../../services/pagination-dummy.service';
-import { ApiService } from "../../services/api.service";
+import { BackendService } from "../../services/backend.service";
 import { ZipRetrieval } from '../../services/zipRetrieval.service';
 import { from, Subscription, switchMap, tap } from 'rxjs';
 
@@ -28,7 +28,7 @@ export class NgxInfiniteScrollComponent implements OnInit {
 
   getUserId() {
     console.log("loading request...")
-    this.apiService.getUserId().subscribe({
+    this.backendService.getUserId().subscribe({
       next: (res) => console.log(res),
       error: (err) => console.log(err),
     });
@@ -89,6 +89,6 @@ export class NgxInfiniteScrollComponent implements OnInit {
 
 
 
-  constructor(private paginationService:PaginationDummyService, private apiService: ApiService,
+  constructor(private paginationService:PaginationDummyService, private backendService: BackendService,
     private zipRetrieval: ZipRetrieval ){}
 }
