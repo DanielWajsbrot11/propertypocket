@@ -19,7 +19,6 @@ import { lastValueFrom } from 'rxjs';
 })
 export class ApiService {
 
-
   constructor(private secretsService: SecretsService) {}
 
 

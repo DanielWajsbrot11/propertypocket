@@ -9,6 +9,7 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from "../environments/environment";
 import { GoogleSsoDirective } from './google-ss.directive';
 import { SecretsService } from './services/secrets.service';
@@ -52,6 +53,7 @@ export function loadEnvironmentSecrets(secretsService: SecretsService) {
   imports: [
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     BrowserModule,
     AppRoutingModule,
     InfiniteScrollDirective,
