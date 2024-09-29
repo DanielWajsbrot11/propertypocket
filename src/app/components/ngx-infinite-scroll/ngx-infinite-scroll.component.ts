@@ -4,7 +4,6 @@ import { BackendService } from "../../services/backend.service";
 import { ZipRetrieval } from '../../services/zipRetrieval.service';
 import { from, Subscription, switchMap, tap } from 'rxjs';
 
-
 // Infinite Scroll copied and pasted from the following links:
 // https://www.youtube.com/watch?v=3IFyMCWziq4
 // https://github.com/rd003/angular-23
@@ -16,7 +15,7 @@ import { from, Subscription, switchMap, tap } from 'rxjs';
   styleUrls: ['./ngx-infinite-scroll.component.scss']
 })
 export class NgxInfiniteScrollComponent implements OnInit {
-
+  
   items: any[] = [];
   isLoading=false;
   currentPage=1;

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxInfiniteScrollComponent } from './components/ngx-infinite-scroll/ngx-infinite-scroll.component';
+import { BookmarkedListingsComponent } from './components/bookmarked-listings/bookmarked-listings.component'
 import { authGuard } from './auth.guard';
 
 // The following site shows authentication and routing
@@ -8,8 +9,12 @@ import { authGuard } from './auth.guard';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: "",
     component: NgxInfiniteScrollComponent,
+  },
+  {
+    path: "bookmarked",
+    component: BookmarkedListingsComponent,
     canActivate: [authGuard],
   },
 ];

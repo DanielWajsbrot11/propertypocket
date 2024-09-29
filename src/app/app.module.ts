@@ -2,7 +2,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms' // Chat-GPT
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';  
 import { AppComponent } from './app.component';
 import { NgxInfiniteScrollComponent } from './components/ngx-infinite-scroll/ngx-infinite-scroll.component';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
@@ -21,6 +21,7 @@ import { PropertyCardComponent } from './components/property-card/property-card.
 import { LandingComponent } from './components/landing/landing.component';
 import { lastValueFrom } from 'rxjs';
 import { PropertyCardCoverComponent } from './components/property-card-cover/property-card-cover.component';
+import { BookmarkedListingsComponent } from './components/bookmarked-listings/bookmarked-listings.component';
 
 // The following site shows authentication
 // https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
@@ -49,6 +50,7 @@ export function loadEnvironmentSecrets(secretsService: SecretsService) {
     PropertyCardComponent,
     LandingComponent,
     PropertyCardCoverComponent,
+    BookmarkedListingsComponent,
   ],
   imports: [
     AngularFireAuthModule,
