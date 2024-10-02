@@ -1,1 +1,14 @@
-<p>bookmarked-listings works!</p>
+<div class="bookmarked-listings">
+    <button class="spaced-button" (click)="logBookmarkedZPIDs()">User Bookmarks</button>
+    <button class="spaced-button" (click)="logLikedZPIDs()">User Likes</button>
+  
+    <ul *ngIf="bookmarks.length > 0; else noBookmarks">
+      <li *ngFor="let bookmark of bookmarks">
+        ZPID: {{ bookmark.zpid }} (Bookmarked at: {{ bookmark.time.toDate() | date:'medium' }})
+      </li>
+    </ul>
+  
+    <ng-template #noBookmarks>
+    </ng-template>
+  </div>
+  
