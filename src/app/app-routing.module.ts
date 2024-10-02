@@ -13,9 +13,8 @@ const routes: Routes = [
     component: NgxInfiniteScrollComponent,
   },
   {
-    path: "bookmarked",
+    path: "saved",
     component: BookmarkedListingsComponent,
-    canActivate: [authGuard],
   },
 ];
 
