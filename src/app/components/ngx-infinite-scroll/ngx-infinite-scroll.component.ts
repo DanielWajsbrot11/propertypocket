@@ -3,6 +3,8 @@ import { PaginationDummyService } from '../../services/pagination-dummy.service'
 import { BackendService } from "../../services/backend.service";
 import { ZipRetrieval } from '../../services/zipRetrieval.service';
 import { from, Subscription, switchMap, tap } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { SavesRetrieval } from '../../services/savesRetrieval.service';
 
 // Infinite Scroll and append data and onScroll copied and pasted from the following links:
 // https://www.youtube.com/watch?v=3IFyMCWziq4
@@ -21,24 +23,17 @@ export class NgxInfiniteScrollComponent implements OnInit {
   currentPage=1;
   itemsPerPage=10;
   zip = "";
-  private submissionSubscription: Subscription | null = null; // Chat-GPT
+  private zipSubmissionSubscription: Subscription | null = null; // Chat-GPT
 
   toggleLoading = () => {this.isLoading = !this.isLoading}
 
-  getUserId() {
-    console.log("loading request...")
-    this.backendService.getUserId().subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.log(err),
-    });
-  }
 
   // Chat-GPT for handling state managemnt with zip. Also, used for debugging.
   async ngOnInit(): Promise<void> {
 
     this.zipRetrieval.zipValue.subscribe((zip) => this.zip = zip);
 
-    this.submissionSubscription = this.zipRetrieval.zipSubmitted.pipe(
+    this.zipSubmissionSubscription = this.zipRetrieval.zipSubmitted.pipe(
       tap(() => this.toggleLoading()),  // Chat-GPT for tap and loading logic here and in complete.
 
       switchMap(() => {
@@ -47,18 +42,13 @@ export class NgxInfiniteScrollComponent implements OnInit {
         
         return from(this.paginationService.callZillowAPI()).pipe(
           switchMap(() => {
-            console.log(this.isLoading);
             return this.paginationService.getItems(this.currentPage, this.itemsPerPage);
           })
         );
       })
       ).subscribe({
         next: (response: any)=>{this.items = response; 
-          console.log(`response is`); 
-          console.table(this.items); 
-          console.log(this.paginationService.getZip());
           this.toggleLoading();
-          console.log(this.isLoading);
       },
         error: (err: any)=>console.log(err),
       });
@@ -81,13 +71,13 @@ export class NgxInfiniteScrollComponent implements OnInit {
   // Chat-GPT
   ngOnDestroy() {
 
-    if (this.submissionSubscription) {
-      this.submissionSubscription.unsubscribe();
+    if (this.zipSubmissionSubscription) {
+      this.zipSubmissionSubscription.unsubscribe();
     }
+
   }
 
 
-
   constructor(private paginationService:PaginationDummyService, private backendService: BackendService,
-    private zipRetrieval: ZipRetrieval ){}
+    private zipRetrieval: ZipRetrieval, private angularFireAuth: AngularFireAuth){}
 }

@@ -14,10 +14,8 @@ export class GoogleSsoDirective {
   constructor(private angularFireAuth: AngularFireAuth) {}
   @HostListener("click")
   async onClick() {
-    console.log("Auth clicked");
     const creds = await this.angularFireAuth.signInWithPopup(
       new GoogleAuthProvider(),
     );
-    // do what you want with the credentials, for ex adding them to firestore...
   }
 }

@@ -46,6 +46,11 @@
     transition: height 2s ease-out;
 }
 
+// Chat-GPT cursor pointer recommendation
+svg{
+  cursor: pointer;
+}
+
 .property-features:hover {
     height: 40vh;
 }

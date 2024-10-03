@@ -7,25 +7,19 @@ import { AngularFirestore } from "@angular/fire/compat/firestore";
 
 import { Timestamp } from 'firebase/firestore';
 
-// The following site shows authentication
+// The following site shows authentication and access to current user. Current user gets used a lot in our code.
 // https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
 
 @Injectable({
   providedIn: "root",
 })
 export class BackendService {
-  // backend url that returns the firebase user id of the current user
-  userIdUrl = `${environment.backendUrl}/userid`;
 
   constructor(
     private http: HttpClient,
     private afAuth: AngularFireAuth,
     private firestore: AngularFirestore
   ) {}
-
-  getUserId(): Observable<any> {
-    return this.http.get(this.userIdUrl);
-  }
 
   // insert bookmark on zpid and user
 

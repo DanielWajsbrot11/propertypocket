@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { ZipRetrieval } from '../../services/zipRetrieval.service';
+import { SavesRetrieval } from '../../services/savesRetrieval.service';
+import { BackendService } from '../../services/backend.service';
 
 
 @Component({
@@ -12,6 +14,7 @@ import { ZipRetrieval } from '../../services/zipRetrieval.service';
 export class NavBarComponent {
 
   zip: string = "";
+  username: string | null = "Sign in";
   
   isMenuOpen = false;
 
@@ -19,12 +22,42 @@ export class NavBarComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  async ngOnInit() {
+
+    // Chat-GPT for accessing user and name.
+    this.angularFireAuth.authState.subscribe(user => {
+      if (user) {
+        this.username = user.displayName;
+      }
+    });
+
+  }
+
   // Chat-GPT for handling keyboard enter event and service call with state managemnt.
-  submitZip(){
+  // State manangement with likes and bookmarks copies same logic from zipRetrieval service in infinite scroll. See reference there.
+  async submitZip(){
     this.zipRetrieval.updateZip(this.zip);
+
+    const user = await this.angularFireAuth.currentUser;
+
+    if (user) {
+
+      let bookmarks = await this.backendService.getBookmarks();
+      let likes = await this.backendService.getLikes();
+
+      const savesObj = {
+        "bookmarks" : bookmarks,
+        "likes" : likes
+      };
+
+      this.savesRetrieval.updateSaves(savesObj);
+
+    }
+
   }
   
-  logOut() {
+  logoutUser() {
+    location.reload();        // Chat-GPT
     this.angularFireAuth.signOut();
   }
 
@@ -34,6 +67,8 @@ export class NavBarComponent {
 
   // The following site shows authentication with signing out. 
   // https://medium.com/@gabriel.cournelle/firebase-authentication-in-angular-ab1b66d041dc
-  constructor(public angularFireAuth: AngularFireAuth, private zipRetrieval: ZipRetrieval) {}
+  constructor(public angularFireAuth: AngularFireAuth, private zipRetrieval: ZipRetrieval, 
+    private savesRetrieval: SavesRetrieval, private backendService: BackendService
+  ) {}
 
 }
