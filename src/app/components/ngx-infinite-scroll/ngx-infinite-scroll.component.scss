@@ -1,3 +1,9 @@
+// Search results and data card taken from:
+//  https://www.youtube.com/watch?v=3IFyMCWziq4
+//  https://github.com/rd003/angular-23
+
+
+
 .search-results {
     height: 100vh;
     overflow: scroll;
@@ -6,9 +12,9 @@
     align-items: center;
 }
 
-.search-results::-webkit-scrollbar{
-    display: none;
-}
+// .search-results::-webkit-scrollbar{
+//     display: none;
+// }
 
 .data-card{
     padding: 5px;
