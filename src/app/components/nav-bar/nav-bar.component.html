@@ -7,7 +7,7 @@
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
               <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
-            <a routerLink="/" onclick="window.location.reload()" class="ml-2 text-xl font-bold text-emerald-600">Property Pocket</a>
+            <a href="/" onclick="window.location.reload()" class="ml-2 text-xl font-bold text-emerald-600">Property Pocket</a>
           </div>
         </div>
         <div class="hidden sm:ml-6 sm:flex sm:items-center w-1/2">
@@ -17,10 +17,10 @@
               type="number"
               placeholder="Search Zip Code"
               (keydown.enter)="submitZip()" [(ngModel)]="zip"
-              class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+              class="{{showZip}} w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
             />
           </div>
-          <a routerLink="/bookmarked" class="ml-3 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
+          <a href="/saved" class="ml-3 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
             <svg class="bookmark-icon w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
             </svg>
@@ -107,4 +107,3 @@
       </div>
     </div>
   </nav>
-  <router-outlet></router-outlet>
