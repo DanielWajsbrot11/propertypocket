@@ -19,6 +19,10 @@ export class PropertyCardComponent {
 
   private savesSubmissionSubscription: Subscription | null = null;
 
+  getPropertyCardImage(){
+    alert("getPropertyCardImage function was called!")
+  }
+
 // Init and destroy logic taken from infinite scroll component. Same thing for subscription logic. See reference there.
 // Chat-GPT for debugging. 
   async ngOnInit() {

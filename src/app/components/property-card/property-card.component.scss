@@ -37,6 +37,8 @@
 
   .property-features {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     font-size: 0.9rem;
     color: #555;
@@ -51,10 +53,13 @@ svg{
   cursor: pointer;
 }
 
-.property-features:hover {
-    height: 40vh;
-}
-
 .bookmark-icon:hover{
   fill: black;
+}
+
+button{
+  background-color: #2980B9;
+  padding: 0.15rem 1rem;
+  color: white;
+  border-radius: 1rem;
 }
