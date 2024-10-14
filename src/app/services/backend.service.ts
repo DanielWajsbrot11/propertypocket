@@ -27,6 +27,12 @@ export class BackendService {
     return this.http.get(this.userIdUrl);
   }
 
+  async getUserFirstName() {
+    const user = await this.afAuth.currentUser;
+    const first = user?.displayName
+    return first;
+  }
+
   // insert bookmark on zpid and user
 
   async makeBookmark(zpid: string): Promise<void> {
@@ -80,7 +86,7 @@ export class BackendService {
 
   // insert like on zpid and user
 
-  async makeLike(zpid: string): Promise<void> {
+  async makeLike(zpid: string, zipcode: string): Promise<void> {
     const user = await this.afAuth.currentUser;
   
     if (user) {
@@ -90,7 +96,8 @@ export class BackendService {
         await this.firestore.collection('Like').add({
           zpid: zpid,         
           userID: userID,     
-          time: new Date()    
+          time: new Date(),
+          zip: zipcode    
         });
   
       } catch (error) {
@@ -360,6 +367,38 @@ export class BackendService {
     } else {
       console.log('user needs to login')
       return;
+    }
+  }
+
+  // returns array of a users top 3 liked zip codes
+  // if return empty array, we have to have a defauly set of zip codes returned. 
+
+  async getTopLikedZipCodes(): Promise<string[]> {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      const userID = user.uid;
+      const likesRef = this.firestore.collection('Like');
+      
+      const likesSnapshot = await likesRef.ref.where('userID', '==', userID).get();
+  
+      if (likesSnapshot.empty) {
+        return ['33602', '10001', '30301'];
+      } 
+      else {
+        const zipLikes: Set<string> = new Set();
+  
+        likesSnapshot.forEach(doc => {
+          const data = doc.data() as { zip: string; zpid: string; userID: string; time: Timestamp };
+          zipLikes.add(data.zip);
+        });
+  
+        const topLikedZipCodes = Array.from(zipLikes).slice(0, 3);
+  
+        return topLikedZipCodes;
+      }
+    } else {
+      console.log('User needs to log in');
+      return ['33602', '10001', '30301'];
     }
   }
 }

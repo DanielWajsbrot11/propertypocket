@@ -27,8 +27,8 @@ export class PropertyCardComponent {
   }
 
   onLikeClick() {
-    if (this.listing.zpid) {
-      this.backendService.makeLike(this.listing.zpid)
+    if (this.listing.zpid && this.listing.zipcode) {
+      this.backendService.makeLike(this.listing.zpid, this.listing.zipcode)
         .then(() => {
           console.log('Like added successfully!');
         })
@@ -126,8 +126,6 @@ export class PropertyCardComponent {
       console.error('ZPID is not available');
     }
   }
-
-  // need testing
 
   onGetUserCommentsClick() {
     if (this.listing.zpid) {
