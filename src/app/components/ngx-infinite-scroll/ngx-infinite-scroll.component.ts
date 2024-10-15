@@ -4,7 +4,7 @@ import { BackendService } from "../../services/backend.service";
 import { ZipRetrieval } from '../../services/zipRetrieval.service';
 import { from, Subscription, switchMap, tap } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { SavesRetrieval } from '../../services/savesRetrieval.service';
+
 
 // Infinite Scroll and append data and onScroll copied and pasted from the following links:
 // https://www.youtube.com/watch?v=3IFyMCWziq4

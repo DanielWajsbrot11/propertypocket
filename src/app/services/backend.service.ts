@@ -16,7 +16,6 @@ import { Timestamp } from 'firebase/firestore';
 export class BackendService {
 
   constructor(
-    private http: HttpClient,
     private afAuth: AngularFireAuth,
     private firestore: AngularFirestore
   ) {}

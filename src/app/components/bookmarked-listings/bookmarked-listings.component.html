@@ -1,14 +1,24 @@
-<div class="bookmarked-listings">
-    <button class="spaced-button" (click)="logBookmarkedZPIDs()">User Bookmarks</button>
-    <button class="spaced-button" (click)="logLikedZPIDs()">User Likes</button>
-  
-    <ul *ngIf="bookmarks.length > 0; else noBookmarks">
-      <li *ngFor="let bookmark of bookmarks">
-        ZPID: {{ bookmark.zpid }} (Bookmarked at: {{ bookmark.time.toDate() | date:'medium' }})
-      </li>
-    </ul>
-  
-    <ng-template #noBookmarks>
-    </ng-template>
-  </div>
-  
+ <!-- This is a copy and paste of our infinite scroll html file so see references there -->
+
+ <div
+ class="search-results"
+ infiniteScroll
+ [infiniteScrollDistance]="2"
+ [infiniteScrollThrottle]="500"
+ (scrolled)="onScroll()"
+ [scrollWindow]="false"
+>
+
+ <div class="loader" *ngIf="isLoading && zip !== ''"></div>
+ <div class="data-card flip-card" *ngFor="let item of items">
+     <div class="flip-card-inner ">
+         <div class="flip-card-front">
+             <app-property-card-cover [listing]="item"></app-property-card-cover>
+         </div>
+         <div class="flip-card-back">
+             <app-property-card [listing]="item"></app-property-card>
+         </div>
+     </div>
+ </div>
+ <div class="loader" *ngIf="isLoading && items.length !== 0 && zip !== ''"></div>
+</div>

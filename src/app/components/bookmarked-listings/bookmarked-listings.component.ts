@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { BackendService } from '../../services/backend.service';
+import { Component, OnInit } from '@angular/core';
+import { PaginationDummyService } from '../../services/pagination-dummy.service';
+import { BackendService } from "../../services/backend.service";
+import { ZipRetrieval } from '../../services/zipRetrieval.service';
+import { from, Subscription, switchMap, tap } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ApiService } from '../../services/api.service';
+
+// This file is just a copy and paste of our infinite-scroll-ts file so see references there.
 
 @Component({
   selector: 'app-bookmarked-listings',
@@ -8,36 +15,31 @@ import { BackendService } from '../../services/backend.service';
 })
 export class BookmarkedListingsComponent {
 
-  bookmarks: any[] = []; 
-  likes: any[] = []; 
+  items: any[] = [];
+  isLoading=false;
 
-  constructor(private backendService: BackendService) {}
+  toggleLoading = () => {this.isLoading = !this.isLoading}
 
-  logBookmarkedZPIDs() {
-    this.backendService.getBookmarks().then(bookmarks => {
-      if (bookmarks) {
-        this.bookmarks = bookmarks; 
-        const zpids = this.bookmarks.map(bookmark => bookmark.zpid);
-        console.log('ZPIDs (Bookmarks):', zpids);
-      } else {
-        console.log('No bookmarks found');
-      }
-    }).catch(error => {
-      console.error('Error fetching bookmarks:', error);
-    });
+
+  async ngOnInit(): Promise<void> {
+
+    // 1. Get bookmarks code and update saves retrieval from navbar ts file
+
+    // 2. Get zpids from user bookmarks
+
+    // 3. Loop through zpids and call this.apiService.returnSingleProperty and get necessary data.
+
+    // 4. Add data to this.items
+
+    
   }
 
-  logLikedZPIDs() {
-    this.backendService.getLikes().then(likes => {
-      if (likes) {
-        this.likes = likes;
-        const zpids = this.likes.map(like => like.zpid);
-        console.log('ZPIDs (Likes):', zpids);
-      } else {
-        console.log('No likes found');
-      }
-    }).catch(error => {
-      console.error('Error fetching likes:', error);
-    });
-  }
+
+  ngOnDestroy() {}
+
+
+  constructor(private paginationService:PaginationDummyService, private backendService: BackendService,
+    private angularFireAuth: AngularFireAuth, private apiService: ApiService){}
+
+ 
 }
