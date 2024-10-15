@@ -3,6 +3,7 @@ import { BackendService } from '../../services/backend.service';
 import { Subscription } from 'rxjs';
 import { SavesRetrieval } from '../../services/savesRetrieval.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-property-card',
@@ -12,15 +13,50 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class PropertyCardComponent {
   @Input() listing: any;
 
-  constructor(private backendService: BackendService, private savesRetrieval: SavesRetrieval, private angularFireAuth: AngularFireAuth) {}
+  constructor(private backendService: BackendService, private savesRetrieval: SavesRetrieval,
+     private angularFireAuth: AngularFireAuth, private apiSerice: ApiService) {}
 
   liked = false;
   bookmarked = false;
+  imgClicked = false;
+  galleryIndex = 0
+
+  singlePropertyData: any | null = null
 
   private savesSubmissionSubscription: Subscription | null = null;
 
-  getPropertyCardImage(){
-    alert("getPropertyCardImage function was called!")
+
+  advanceRight() {
+
+    this.galleryIndex = this.galleryIndex + 1;
+
+    if (this.galleryIndex > (this.singlePropertyData.responsivePhotos.length - 1)) {
+      this.galleryIndex = 0
+    }
+    console.log(this.galleryIndex);
+  }
+
+  advanceLeft() {
+    
+    this.galleryIndex = this.galleryIndex - 1;
+
+    if (this.galleryIndex < 0) {
+      this.galleryIndex = (this.singlePropertyData.responsivePhotos.length - 1);
+    }
+
+    console.log(this.galleryIndex);
+
+  }
+
+  async getPropertyCardImage(){
+    this.singlePropertyData = await this.apiSerice.returnSingleProperty(this.listing.zpid);
+    console.log(`The length of the photo gallery is ${this.singlePropertyData.responsivePhotos.length}`)
+    this.imgClicked = true;
+    console.log(this.listing.zpid);
+    // Also need agent email, name, and phone number
+    alert(`Date Posted: ${this.singlePropertyData.datePostedString}\nYear Built: ${this.singlePropertyData.yearBuilt}\n\nDescription of Property:\n\n${this.singlePropertyData.description}
+      \nTaxes: $${this.singlePropertyData.resoFacts.taxAnnualAmount} \nLot size: ${this.singlePropertyData.lotAreaValue} ${this.singlePropertyData.lotAreaUnits} \n HOA: ${this.singlePropertyData.resoFacts.hoaFeeTotal}\nInsurance: $${this.singlePropertyData.annualHomeownersInsurance}
+      `);
   }
 
 // Init and destroy logic taken from infinite scroll component. Same thing for subscription logic. See reference there.
@@ -49,6 +85,7 @@ export class PropertyCardComponent {
         });
 
     }
+
 
   }
 

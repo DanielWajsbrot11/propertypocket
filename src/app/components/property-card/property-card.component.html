@@ -4,7 +4,6 @@
       <div class="property-details">
         <h2 class="property-name">{{listing.streetAddress}}, {{listing.city}}, {{listing.state}}</h2>
         <p class="property-price">{{listing.price | currency:'USD':'symbol':'1.0-0'}}</p>
-        <p class="property-address">{{listing.zpid}}</p>
         <div class="flex flex-row">
           <!-- Chat-GPT for handling click events with svg and ternary filling-->
           <svg class="bookmark-icon w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" (click)="onLikeClick()">
@@ -34,11 +33,11 @@
           <button class="getImagesBtn" (click)="getPropertyCardImage()">See More Images</button>
       </div>
       <div>
-        <p class="text-black">load images here</p>
       </div>
-      <div class="flex flex-row justify-end">
-        <button class="getImagesBtn"><</button>
-        <button class="getImagesBtn">></button>
+      <div *ngIf='imgClicked' class="flex flex-row justify-end">
+        <img src="{{singlePropertyData.responsivePhotos.at(galleryIndex).url}}" alt="" width="200" height="200">
+        <button (click)='advanceLeft()' class="getImagesBtn"><</button>
+        <button (click)='advanceRight()' class="getImagesBtn">></button>
       </div>
     </div>
 </div>
