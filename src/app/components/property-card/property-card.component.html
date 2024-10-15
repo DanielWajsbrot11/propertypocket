@@ -31,7 +31,11 @@
           <span>
             <i class="fas fa-vector-square"></i>{{listing.livingArea}} sqft
           </span>
-          <button (click)="getPropertyCardImage()">See More Images</button>
+          <button class="getImagesBtn" (click)="getPropertyCardImage()">See More Images</button>
       </div>
-  </div>
+      <div class="flex flex-row justify-end">
+        <button class="getImagesBtn"><</button>
+        <button class="getImagesBtn">></button>
+      </div>
+    </div>
 </div>
