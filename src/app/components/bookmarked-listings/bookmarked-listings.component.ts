@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PaginationDummyService } from '../../services/pagination-dummy.service';
 import { BackendService } from "../../services/backend.service";
-import { ZipRetrieval } from '../../services/zipRetrieval.service';
-import { from, Subscription, switchMap, tap } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ApiService } from '../../services/api.service';
+import { SavesRetrieval } from '../../services/savesRetrieval.service';
 
 // This file is just a copy and paste of our infinite-scroll-ts file so see references there.
 
@@ -23,13 +22,32 @@ export class BookmarkedListingsComponent {
 
   async ngOnInit(): Promise<void> {
 
-    // 1. Get bookmarks code and update saves retrieval from navbar ts file
+    this.toggleLoading();
 
-    // 2. Get zpids from user bookmarks
+    // Code copied from navbar file. See references there.
+    const user = await this.angularFireAuth.currentUser;
 
-    // 3. Loop through zpids and call this.apiService.returnSingleProperty and get necessary data.
+    if (user) {
 
-    // 4. Add data to this.items
+      let bookmarks = await this.backendService.getBookmarks();
+      let likes = await this.backendService.getLikes();
+
+      const savesObj = {
+        "bookmarks" : bookmarks,
+        "likes" : likes
+      };
+
+      this.savesRetrieval.updateSaves(savesObj);
+
+    }
+
+    // 3. Loop through returned bookmarks and get zpids
+
+    // 4. For each zpid, call this.apiService.returnSingleProperty and get necessary data.
+
+    // 5. Add data to this.items
+
+    this.toggleLoading();
 
     
   }
@@ -39,7 +57,7 @@ export class BookmarkedListingsComponent {
 
 
   constructor(private paginationService:PaginationDummyService, private backendService: BackendService,
-    private angularFireAuth: AngularFireAuth, private apiService: ApiService){}
+    private angularFireAuth: AngularFireAuth, private apiService: ApiService, private savesRetrieval: SavesRetrieval){}
 
  
 }
