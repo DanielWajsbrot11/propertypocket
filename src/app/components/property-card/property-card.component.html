@@ -20,24 +20,28 @@
       </div>
   </div>
   <div class="property-card">
-      <div class="property-features">
-          <span>
-            <i class="fas fa-bed"></i> {{listing.bedrooms}} beds
-          </span>
-          <span>
-            <i class="fas fa-bath"></i> {{listing.bathrooms}} baths
-          </span>
-          <span>
-            <i class="fas fa-vector-square"></i>{{listing.livingArea}} sqft
-          </span>
-          <button class="getImagesBtn" (click)="getPropertyCardImage()">See More Images</button>
+    <div class="property-features">
+        <span>
+          <i class="fas fa-bed"></i> {{listing.bedrooms}} beds
+        </span>
+        <span>
+          <i class="fas fa-bath"></i> {{listing.bathrooms}} baths
+        </span>
+        <span>
+          <i class="fas fa-vector-square"></i>{{listing.livingArea}} sqft
+        </span>
+        <button class="getImagesBtn" (click)="getPropertyCardImage()">See More Images</button>
+    </div>
+    <div *ngIf='imgClicked' class="flex flex-col items-center justify-center">
+      <div class="flex flex-row justify-between">
+        <img class="rounded-md px-1" src="{{singlePropertyData.responsivePhotos.at(galleryIndex).url}}" alt="" width="200" height="200">
+        <img class="rounded-md px-1" src="{{singlePropertyData.responsivePhotos.at(galleryIndex+1).url}}" alt="" width="200" height="200">
+        <img class="rounded-md px-1" src="{{singlePropertyData.responsivePhotos.at(galleryIndex+2).url}}" alt="" width="200" height="200">
       </div>
-      <div>
-      </div>
-      <div *ngIf='imgClicked' class="flex flex-row justify-end">
-        <img src="{{singlePropertyData.responsivePhotos.at(galleryIndex).url}}" alt="" width="200" height="200">
+      <div class="flex flex-row">
         <button (click)='advanceLeft()' class="getImagesBtn"><</button>
         <button (click)='advanceRight()' class="getImagesBtn">></button>
       </div>
     </div>
+  </div>
 </div>
