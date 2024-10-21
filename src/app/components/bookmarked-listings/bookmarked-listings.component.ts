@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { PaginationDummyService } from '../../services/pagination-dummy.service';
 import { BackendService } from "../../services/backend.service";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -28,31 +28,24 @@ export class BookmarkedListingsComponent {
     const user = await this.angularFireAuth.currentUser;
 
     if (user) {
+
       let bookmarks = await this.backendService.getBookmarks();
       let likes = await this.backendService.getLikes();
-  
+
       const savesObj = {
-        "bookmarks": bookmarks,
-        "likes": likes
+        "bookmarks" : bookmarks,
+        "likes" : likes
       };
-  
+
       this.savesRetrieval.updateSaves(savesObj);
-  
-      // Check if bookmarks is defined and not empty
-      if (bookmarks && bookmarks.length > 0) {
-        // Loop through returned bookmarks and get zpids
-        for (let bookmark of bookmarks) {
-          const zpid = bookmark.zpid;
-  
-          // For each zpid, call this.apiService.returnSingleProperty and get necessary data.
-          const propertyData = await this.apiService.returnSingleProperty(zpid);
-  
-          // Add data to this.items
-          this.items.push(propertyData);
-        }
-      }
+
     }
-    
+
+    // 3. Loop through returned bookmarks and get zpids
+
+    // 4. For each zpid, call this.apiService.returnSingleProperty and get necessary data.
+
+    // 5. Add data to this.items
 
     this.toggleLoading();
 
@@ -64,7 +57,7 @@ export class BookmarkedListingsComponent {
 
 
   constructor(private paginationService:PaginationDummyService, private backendService: BackendService,
-    @Inject(AngularFireAuth) private angularFireAuth: AngularFireAuth, private apiService: ApiService, private savesRetrieval: SavesRetrieval){}
+    private angularFireAuth: AngularFireAuth, private apiService: ApiService, private savesRetrieval: SavesRetrieval){}
 
  
 }
