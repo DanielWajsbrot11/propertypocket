@@ -5,7 +5,8 @@
  <div class="search-results">
     <div class="loader" *ngIf="isLoading">
     </div>
-    <!-- <h1 class="text-center py-5" *ngIf="items.length === 0">No bookmarks</h1> -->
+    <!-- Chat-GPT for tailwind text style -->
+    <h1 class="text-center text-3xl font-bold py-5" *ngIf="items.length === 0 && loaded">No bookmarks</h1>
     <div class="data-card flip-card" *ngFor="let item of items">
         <div class="flip-card-inner" *ngIf="loaded">
             <div class="flip-card-front">
@@ -16,4 +17,6 @@
             </div>
         </div>
     </div>
+    <!-- Just for having some margin at the bottom. -->
+    <div class="mb-[100px]"></div>
 </div>
