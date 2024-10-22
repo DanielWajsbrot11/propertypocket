@@ -16,6 +16,7 @@ export class BookmarkedListingsComponent {
 
   items: any[] = [];
   isLoading=false;
+  loaded = false;
 
   toggleLoading = () => {this.isLoading = !this.isLoading}
 
@@ -24,34 +25,42 @@ export class BookmarkedListingsComponent {
 
     this.toggleLoading();
 
-    // Code copied from navbar file. See references there.
+    // Code structure below copied from navbar file. See references there.
+
+
+    // We wait to allow enough time for currentUser to be returned. Chat-GPT helped me realize this was the issue.
+    // Timeout copied from api service file. See reference there.
+    await new Promise(resolve => setTimeout(resolve, 1000));
     const user = await this.angularFireAuth.currentUser;
 
+    console.log(user);
     
-  if (user) {
-    let bookmarks = await this.backendService.getBookmarks();
-    let likes = await this.backendService.getLikes();
+    if (user) {
+      let bookmarks = await this.backendService.getBookmarks();
+      let likes = await this.backendService.getLikes();
 
-    const savesObj = {
-      "bookmarks": bookmarks,
-      "likes": likes
-    };
+      const savesObj = {
+        "bookmarks": bookmarks,
+        "likes": likes
+      };
 
-    this.savesRetrieval.updateSaves(savesObj);
+      this.savesRetrieval.updateSaves(savesObj);
 
-    
-    if (bookmarks && bookmarks.length > 0) {
-      // Loop through returned bookmarks and get zpids
-      for (let bookmark of bookmarks) {
-        const zpid = bookmark.zpid;
+      
+      if (bookmarks && bookmarks.length > 0) {
+        // Loop through returned bookmarks and get zpids
+        for (let bookmark of bookmarks) {
+          const zpid = bookmark.zpid;
 
-        // For each zpid, call this.apiService.returnSingleProperty and get necessary data.
-        const propertyData = await this.apiService.returnSingleProperty(zpid);
+          // For each zpid, call this.apiService.returnSingleProperty and get necessary data.
+          const propertyData = await this.apiService.returnSingleProperty(zpid);
 
-        // Add data to this.items
-        this.items.push(propertyData);
+          // Add data to this.items
+          this.items.push(propertyData);
+        }
       }
-    }
+
+      console.log(this.items);
   }
 
     // 3. Loop through returned bookmarks and get zpids
@@ -61,6 +70,7 @@ export class BookmarkedListingsComponent {
     // 5. Add data to this.items
 
     this.toggleLoading();
+    this.loaded = true;
 
     
   }

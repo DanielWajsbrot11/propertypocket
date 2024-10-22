@@ -1,17 +1,19 @@
  <!-- This is a copy and paste of our infinite scroll html file so see references there -->
 
- <div>
-    <div class="loader" *ngIf="isLoading"></div>
-    <h1 class="text-center py-5" *ngIf="items.length === 0">No bookmarks</h1>
+ <!-- Had some issues with rendering content and Chat-GPT helped debug. Realized we had a useless div. Also, helped with *ngIf.-->
+
+ <div class="search-results">
+    <div class="loader" *ngIf="isLoading">
+    </div>
+    <!-- <h1 class="text-center py-5" *ngIf="items.length === 0">No bookmarks</h1> -->
     <div class="data-card flip-card" *ngFor="let item of items">
-        <div class="flip-card-inner ">
+        <div class="flip-card-inner" *ngIf="loaded">
             <div class="flip-card-front">
-                <app-property-card-cover [listing]="item"></app-property-card-cover>
+                <img src={{item.desktopWebHdpImageLink}} class="cover-photo">
             </div>
             <div class="flip-card-back">
                 <app-property-card [listing]="item"></app-property-card>
             </div>
         </div>
     </div>
-    <div class="loader" *ngIf="isLoading && items.length !== 0"></div>
 </div>
