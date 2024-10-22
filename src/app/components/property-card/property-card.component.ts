@@ -12,6 +12,7 @@ import { ApiService } from '../../services/api.service';
 })
 export class PropertyCardComponent {
   @Input() listing: any;
+  isModalOpen:boolean = false;
 
   constructor(private backendService: BackendService, private savesRetrieval: SavesRetrieval,
      private angularFireAuth: AngularFireAuth, private apiSerice: ApiService) {}
@@ -95,6 +96,8 @@ export class PropertyCardComponent {
     }
   }
 
+  
+
   onBookmarkClick() {
     
     this.bookmarked = !this.bookmarked;
@@ -165,6 +168,10 @@ export class PropertyCardComponent {
         console.error('ZPID is not available');
       }
     }
+  }
+
+  toggleModal(){
+    this.isModalOpen = !this.isModalOpen;
   }
 
   // need test
