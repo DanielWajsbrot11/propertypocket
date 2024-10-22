@@ -12,8 +12,8 @@
     [scrollWindow]="false"
 >
 
-<!-- ChatGPT showed how to do conditional loading, debugging, and insert child components. -->
-    <p *ngIf="zip === ''">Enter a valid zip code.</p>
+<!-- ChatGPT showed how to do conditional loading, debugging, and insert child components. Chat-GPT for tailwind text style -->
+    <h1 class="text-3xl mt-3" *ngIf="zip === ''">Enter a valid zip code.</h1>
     <div class="loader" *ngIf="isLoading && zip !== ''"></div>
     <div class="data-card flip-card" *ngFor="let item of items">
         <div class="flip-card-inner ">
