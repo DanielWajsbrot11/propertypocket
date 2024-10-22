@@ -5,10 +5,9 @@
      <div *ngIf="loaded">
         <!-- <h1 class="text-center py-5" *ngIf="items.length === 0">No bookmarks</h1> -->
         <div class="data-card flip-card" *ngFor="let item of items">
-            <p>Test element</p>
             <div class="flip-card-inner ">
                 <div class="flip-card-front">
-                    <app-property-card-cover [listing]="item"></app-property-card-cover>
+                    <img src={{item.desktopWebHdpImageLink}} class="cover-photo">
                 </div>
                 <div class="flip-card-back">
                     <app-property-card [listing]="item"></app-property-card>
