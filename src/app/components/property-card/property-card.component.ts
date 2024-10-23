@@ -15,7 +15,7 @@ export class PropertyCardComponent {
   isModalOpen:boolean = false;
 
   constructor(private backendService: BackendService, private savesRetrieval: SavesRetrieval,
-     private angularFireAuth: AngularFireAuth, private apiSerice: ApiService) {}
+     public angularFireAuth: AngularFireAuth, private apiSerice: ApiService) {}
 
   liked = false;
   bookmarked = false;
