@@ -20,44 +20,69 @@ export class PropertyCardComponent {
   liked = false;
   bookmarked = false;
   imgClicked = false;
-  galleryIndex = 0
+  leftIndex = 0;
+  currentIndex = 1
+  rightIndex = 2;
 
   singlePropertyData: any | null = null
 
   private savesSubmissionSubscription: Subscription | null = null;
 
 
-  advanceRight() {
-
-    this.galleryIndex = this.galleryIndex + 1;
-
-    if (this.galleryIndex > (this.singlePropertyData.responsivePhotos.length - 1)) {
-      this.galleryIndex = 0
+  // Chat GPT for understanding concepts here.
+  advanceLeft() {
+    if (this.leftIndex === 0){
+      this.leftIndex = this.singlePropertyData.responsivePhotos.length - 1;
     }
-    console.log(this.galleryIndex);
+    else {
+      this.leftIndex--;
+    }
+
+    if (this.currentIndex === 0){
+      this.currentIndex = this.singlePropertyData.responsivePhotos.length - 1;
+    }
+    else {
+      this.currentIndex--;
+    }
+
+    if (this.rightIndex === 0){
+      this.rightIndex = this.singlePropertyData.responsivePhotos.length - 1;
+    
+    }
+    else {
+      this.rightIndex--;
+    }
   }
 
-  advanceLeft() {
-    
-    this.galleryIndex = this.galleryIndex - 1;
-
-    if (this.galleryIndex < 0) {
-      this.galleryIndex = (this.singlePropertyData.responsivePhotos.length - 1);
+  advanceRight() {
+    if (this.leftIndex === (this.singlePropertyData.responsivePhotos.length - 1)) {
+      this.leftIndex = 0
+    } else {
+      this.leftIndex++;
     }
 
-    console.log(this.galleryIndex);
+    if (this.currentIndex === (this.singlePropertyData.responsivePhotos.length - 1)) {
+      this.currentIndex = 0;
+    } else {
+      this.currentIndex++;
+    }
 
+    if (this.rightIndex === (this.singlePropertyData.responsivePhotos.length - 1)) {
+      this.rightIndex = 0;
+    } else {
+      this.rightIndex++;
+    }
   }
 
   async getPropertyCardImage(){
     this.singlePropertyData = await this.apiSerice.returnSingleProperty(this.listing.zpid);
+    console.log(this.listing.zpid);
     console.log(`The length of the photo gallery is ${this.singlePropertyData.responsivePhotos.length}`)
     this.imgClicked = true;
     console.log(this.listing.zpid);
-    // Also need agent email, name, and phone number
-    alert(`Date Posted: ${this.singlePropertyData.datePostedString}\nYear Built: ${this.singlePropertyData.yearBuilt}\n\nDescription of Property:\n\n${this.singlePropertyData.description}
-      \nTaxes: $${this.singlePropertyData.resoFacts.taxAnnualAmount} \nLot size: ${this.singlePropertyData.lotAreaValue} ${this.singlePropertyData.lotAreaUnits} \n HOA: ${this.singlePropertyData.resoFacts.hoaFeeTotal}\nInsurance: $${this.singlePropertyData.annualHomeownersInsurance}
-      `);
+
+    // Chat-GPT for rounding and complex ternary formatting for lotareavalue and lotareaunits.
+    alert(`Date Posted: ${this.singlePropertyData.datePostedString ? this.singlePropertyData.datePostedString : 'N/A'}\nYear Built: ${this.singlePropertyData.yearBuilt ? this.singlePropertyData.yearBuilt : 'N/A'}\nTaxes: $${this.singlePropertyData.resoFacts.taxAnnualAmount ? Math.round(this.singlePropertyData.resoFacts.taxAnnualAmount) : 'N/A'}\nLot size: ${this.singlePropertyData.lotAreaValue && this.singlePropertyData.lotAreaUnits ? `${this.singlePropertyData.lotAreaValue} ${this.singlePropertyData.lotAreaUnits}` : 'N/A'}\nHOA: ${this.singlePropertyData.resoFacts.hoaFeeTotal ? this.singlePropertyData.resoFacts.hoaFeeTotal : 'N/A'}\nInsurance: $${this.singlePropertyData.annualHomeownersInsurance ? Math.round(this.singlePropertyData.annualHomeownersInsurance) : 'N/A'}\n\nAgent Name: ${this.singlePropertyData.attributionInfo.agentName ? this.singlePropertyData.attributionInfo.agentName : 'N/A'}\nAgent Email: ${this.singlePropertyData.attributionInfo.agentEmail ? this.singlePropertyData.attributionInfo.agenetEmail : 'N/A'}\nAgent Phone Number: ${this.singlePropertyData.attributionInfo.agentPhoneNumber ? this.singlePropertyData.attributionInfo.agentPhoneNumber : 'N\A'}\n\nDescription:\n${this.singlePropertyData.description}`);
   }
 
 // Init and destroy logic taken from infinite scroll component. Same thing for subscription logic. See reference there.

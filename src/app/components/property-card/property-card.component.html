@@ -63,9 +63,9 @@
     </div>
     <div *ngIf='imgClicked' class="flex flex-col items-center justify-center">
       <div class="flex flex-row justify-between">
-        <img class="rounded-md px-1" src="{{singlePropertyData.responsivePhotos.at(galleryIndex).url}}" alt="" width="200" height="200">
-        <img class="rounded-md px-1" src="{{singlePropertyData.responsivePhotos.at(galleryIndex+1).url}}" alt="" width="200" height="200">
-        <img class="rounded-md px-1" src="{{singlePropertyData.responsivePhotos.at(galleryIndex+2).url}}" alt="" width="200" height="200">
+        <img class="rounded-md px-1" src="{{singlePropertyData.responsivePhotos.at(leftIndex).url}}" alt="" width="200" height="200">
+        <img class="rounded-md px-1" src="{{singlePropertyData.responsivePhotos.at(currentIndex).url}}" alt="" width="200" height="200">
+        <img class="rounded-md px-1" src="{{singlePropertyData.responsivePhotos.at(rightIndex).url}}" alt="" width="200" height="200">
       </div>
       <div class="flex flex-row">
         <button (click)='advanceLeft()' class="getImagesBtn"><</button>
