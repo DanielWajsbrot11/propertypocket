@@ -18,6 +18,12 @@ export class BookmarkedListingsComponent {
   isLoading=false;
   loaded = false;
 
+  leftIndex = 0;
+  currentIndex = 1;
+  rightIndex = 2;
+
+  imgClicked = false;
+
   toggleLoading = () => {this.isLoading = !this.isLoading}
 
 
@@ -63,11 +69,6 @@ export class BookmarkedListingsComponent {
       console.log(this.items);
   }
 
-    // 3. Loop through returned bookmarks and get zpids
-
-    // 4. For each zpid, call this.apiService.returnSingleProperty and get necessary data.
-
-    // 5. Add data to this.items
 
     this.toggleLoading();
     this.loaded = true;
@@ -75,12 +76,82 @@ export class BookmarkedListingsComponent {
     
   }
 
+  async showBookmarkedPropertyDetails(item: any) {
+    const singlePropertyData = await this.apiService.returnSingleProperty(item.zpid);
+    console.log(item.zpid);
+    console.log(`The length of the photo gallery is ${singlePropertyData.responsivePhotos.length}`);
+    this.imgClicked = true;
+    console.log(item.zpid);
+
+    alert(`Date Posted: ${singlePropertyData.datePostedString ? singlePropertyData.datePostedString : 'N/A'}
+Year Built: ${singlePropertyData.yearBuilt ? singlePropertyData.yearBuilt : 'N/A'}
+Taxes: $${singlePropertyData.resoFacts.taxAnnualAmount ? Math.round(singlePropertyData.resoFacts.taxAnnualAmount) : 'N/A'}
+Lot size: ${singlePropertyData.lotAreaValue && singlePropertyData.lotAreaUnits ? `${Math.round(singlePropertyData.lotAreaValue)} ${singlePropertyData.lotAreaUnits}` : 'N/A'}
+HOA: ${singlePropertyData.resoFacts.hoaFeeTotal ? singlePropertyData.resoFacts.hoaFeeTotal : 'N/A'}
+Insurance: $${singlePropertyData.annualHomeownersInsurance ? Math.round(singlePropertyData.annualHomeownersInsurance) : 'N/A'}
+
+Agent Name: ${singlePropertyData.attributionInfo.agentName ? singlePropertyData.attributionInfo.agentName : 'N/A'}
+Agent Email: ${singlePropertyData.attributionInfo.agentEmail ? singlePropertyData.attributionInfo.agentEmail : 'N/A'}
+Agent Phone Number: ${singlePropertyData.attributionInfo.agentPhoneNumber ? singlePropertyData.attributionInfo.agentPhoneNumber : 'N/A'}
+
+Description:
+${singlePropertyData.description}`);
+  }
+
 
   ngOnDestroy() {}
 
 
-  constructor(private paginationService:PaginationDummyService, private backendService: BackendService,
-    private angularFireAuth: AngularFireAuth, private apiService: ApiService, private savesRetrieval: SavesRetrieval){}
+  constructor(
+    private paginationService:PaginationDummyService, private backendService: BackendService,
+    private angularFireAuth: AngularFireAuth, private apiService: ApiService, private savesRetrieval: SavesRetrieval
+  ){}
 
- 
+
+advanceRight() {
+  if (this.leftIndex === 0){
+    this.leftIndex = this.items.length - 1;
+  }
+  else {
+    this.leftIndex--;
+  }
+
+  if (this.currentIndex === 0){
+    this.currentIndex = this.items.length - 1;
+  }
+  else {
+    this.currentIndex--;
+  }
+
+  if (this.rightIndex === 0){
+    this.rightIndex = this.items.length - 1;
+  
+  }
+  else {
+    this.rightIndex--;
+  }
+}
+
+advanceLeft() {
+  if (this.leftIndex === 0) {
+    this.leftIndex = this.items.length - 1;
+  } else {
+    this.leftIndex--;
+  }
+
+  if (this.currentIndex === 0) {
+    this.currentIndex = this.items.length - 1;
+  } else {
+    this.currentIndex--;
+  }
+
+  if (this.rightIndex === 0) {
+    this.rightIndex = this.items.length - 1;
+  } else {
+    this.rightIndex--;
+  }
+}
+
+
+
 }
