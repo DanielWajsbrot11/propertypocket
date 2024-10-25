@@ -256,28 +256,24 @@ export class BackendService {
 
   async getNumLikes(zpid: string){
     const user = await this.afAuth.currentUser;
-    if (user) {
-      const likesRef = this.firestore.collection('Like');
-      const likesSnapshot = await likesRef.ref.where('zpid', '==', zpid).get();
 
-      let zpids: string[] = [];
+    const likesRef = this.firestore.collection('Like');
+    const likesSnapshot = await likesRef.ref.where('zpid', '==', zpid).get();
 
-      if (likesSnapshot.empty) {
-        console.log('No bookmarks found');
-        return [];
-      } else {
-        const likes = likesSnapshot.docs.map(doc => {
-          const data = doc.data() as { zpid: string; userID: string; time: Timestamp;};
-          return {
-            zpid: data.zpid,
-          };
-        });
+    let zpids: string[] = [];
 
-        return likes.length;
-      }
+    if (likesSnapshot.empty) {
+      console.log('No Likes found');
+      return 0;
     } else {
-      console.log('user needs to login')
-      return;
+      const likes = likesSnapshot.docs.map(doc => {
+        const data = doc.data() as { zpid: string; userID: string; time: Timestamp;};
+        return {
+          zpid: data.zpid,
+        };
+      });
+
+      return likes.length;
     }
   }
 

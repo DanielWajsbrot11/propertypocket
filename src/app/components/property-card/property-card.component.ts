@@ -18,6 +18,7 @@ export class PropertyCardComponent {
      public angularFireAuth: AngularFireAuth, private apiSerice: ApiService) {}
 
   liked = false;
+  numLikes: number = 0
   bookmarked = false;
   imgClicked = false;
   leftIndex = 0;
@@ -88,6 +89,8 @@ export class PropertyCardComponent {
 // Init and destroy logic taken from infinite scroll component. Same thing for subscription logic. See reference there.
 // Chat-GPT for debugging. 
   async ngOnInit() {
+
+    this.numLikes = await this.backendService.getNumLikes(this.listing.zpid);
     
     const user = await this.angularFireAuth.currentUser;
 
@@ -169,6 +172,7 @@ export class PropertyCardComponent {
         this.backendService.makeLike(this.listing.zpid)
           .then(() => {
             console.log('Like added successfully!');
+            this.numLikes++;
           })
           .catch((error) => {
             console.error('Error storing like:', error);
@@ -184,6 +188,7 @@ export class PropertyCardComponent {
         this.backendService.deleteLike(this.listing.zpid)
           .then(() => {
             console.log('Like Removed!');
+            this.numLikes--;
           })
           .catch((error) => {
             console.error('Error deleting:', error);
