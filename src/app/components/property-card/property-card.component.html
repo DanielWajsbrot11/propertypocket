@@ -36,21 +36,17 @@
       </div>
     </div>
   </div>
-  <div *ngIf="isModalOpen" class="flex flex-col max-h-fit bg-slate-500 rounded-md">
+  <div *ngIf="isModalOpen" class="flex flex-col h-4 rounded-md">
       <div class="flex flex-row justify-between px-4">
         <p>Comments<p>
         <span class="close-btn cursor-pointer" (click)="toggleModal()">&times;</span>
       </div>
-      <div class="bg-white h-20 rounded-md"></div>
-      <div class="bg-white h-20 rounded-md"></div>
-      <div class="bg-white h-20 rounded-md"></div>
-      <input
-        type="text"
-        placeholder="Comment on the property"
-        class="text-black w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
-      />
+      <div class="input-container">
+        <input type="text" class="input-field" placeholder="Comment on this listing...">
+        <button onclick="alert('clicked')" class="send-button" aria-label="Send message"></button>
+      </div>
   </div>
-  <div *ngIf="!isModalOpen" class="property-card max-h-fit">
+  <div *ngIf="!isModalOpen" class="property-card">
     <div class="property-features">
         <span>
           <i class="fas fa-bed"></i> {{listing.bedrooms}} beds
