@@ -58,9 +58,9 @@ export class BackendService {
           zpid: zpid,         
           userID: userID,
           comment: comment,     
-          time: new Date()    
+          date: new Date(),
+          name: user.displayName
         });
-  
       } catch (error) {
         console.error('Error adding Comment: ', error);
         throw error;
@@ -147,36 +147,6 @@ export class BackendService {
         });
       } else {
         console.log('No bookmark found to delete.');
-      }
-    } else {
-      console.error('User not authenticated');
-      throw new Error('User not authenticated');
-    }
-  }
-
-  // delete comment from user on ZPID
-
-  async deleteComment(zpid: string, comment: string): Promise<void> {
-    const user = await this.afAuth.currentUser;
-  
-    if (user) {
-      const userID = user.uid;
-  
-      const commentsRef = this.firestore.collection('Comment');
-  
-      const querySnapshot = await commentsRef.ref
-        .where('userID', '==', userID)
-        .where('zpid', '==', zpid)
-        .where('comment', '==', comment)
-        .get();
-  
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach(async (doc) => {
-          await doc.ref.delete();
-          console.log(`Comment for ZPID: ${zpid} has been deleted.`);
-        });
-      } else {
-        console.log('No comment found to delete.');
       }
     } else {
       console.error('User not authenticated');
@@ -277,78 +247,34 @@ export class BackendService {
     }
   }
 
-  // gets all comments from user on certain zpid
-
-  async getUserComments(zpid: string){
-    const user = await this.afAuth.currentUser;
-    if (user) {
-      const userID = user.uid;
-      const commentsRef = this.firestore.collection('Comment');
-      const commentsSnapshot = await commentsRef.ref
-      .where('userID', '==', userID)
-      .where('zpid', '==', zpid)
-      .get();
-
-      let zpids: string[] = [];
-
-      if (commentsSnapshot.empty) {
-        console.log('No comments found');
-        return [];
-      } else {
-        const comments = commentsSnapshot.docs.map(doc => {
-          const data = doc.data() as { zpid: string; userID: string; comment: string; time: Timestamp;};
-          return {
-            zpid: data.zpid,
-            comment: data.comment,
-            time: data.time
-          };
-        });
-
-        comments.sort((a, b) => b.time.toMillis() - a.time.toMillis());
-
-        console.log('Comments sorted by timestamp:', comments);
-        return comments;
-      }
-    } else {
-      console.log('user needs to login')
-      return;
-    }
-  }
-
   // get all comments associated with a ZPID
 
   async getZPIDComments(zpid: string){
-    const user = await this.afAuth.currentUser;
-    if (user) {
-      const commentsRef = this.firestore.collection('Comment');
-      const commentsSnapshot = await commentsRef.ref
-      .where('zpid', '==', zpid)
-      .get();
+    const commentsRef = this.firestore.collection('Comment');
+    const commentsSnapshot = await commentsRef.ref
+    .where('zpid', '==', zpid)
+    .get();
 
-      let zpids: string[] = [];
+    let zpids: string[] = [];
 
-      if (commentsSnapshot.empty) {
-        console.log('No comments found');
-        return [];
-      } else {
-        const comments = commentsSnapshot.docs.map(doc => {
-          const data = doc.data() as { zpid: string; userID: string; comment: string; time: Timestamp;};
-          return {
-            userID: data.userID,
-            zpid: data.zpid,
-            comment: data.comment,
-            time: data.time
-          };
-        });
-
-        comments.sort((a, b) => b.time.toMillis() - a.time.toMillis());
-
-        console.log('Comments sorted by timestamp:', comments);
-        return comments;
-      }
+    if (commentsSnapshot.empty) {
+      console.log('No comments found');
+      return [];
     } else {
-      console.log('user needs to login')
-      return;
+      const comments = commentsSnapshot.docs.map(doc => {
+        const data = doc.data() as { zpid: string; userID: string; comment: string; time: Timestamp;};
+        return {
+          userID: data.userID,
+          zpid: data.zpid,
+          comment: data.comment,
+          time: data.time
+        };
+      });
+
+      comments.sort((a, b) => b.time.toMillis() - a.time.toMillis());
+
+      console.log('Comments sorted by timestamp:', comments);
+      return comments;
     }
   }
 }
