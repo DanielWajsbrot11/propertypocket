@@ -18,6 +18,7 @@ export class NavBarComponent {
   zip: string = "";
   username: string | null = "Sign in";
   showZip: string = "block";
+  userPhotoUrl: string | null = null;
   
   isMenuOpen = false;
 
@@ -40,6 +41,7 @@ export class NavBarComponent {
     this.angularFireAuth.authState.subscribe(user => {
       if (user) {
         this.username = user.displayName;
+        this.userPhotoUrl = user.photoURL || 'https://github.com/shadcn.png';
       }
     });
 

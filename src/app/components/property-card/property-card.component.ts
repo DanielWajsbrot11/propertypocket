@@ -248,21 +248,6 @@ export class PropertyCardComponent {
     }
   }
 
-  // need testing
-  onDeleteCommentClick() {
-    if (this.listing.zpid) {
-      this.backendService.deleteComment(this.listing.zpid, "TEST COMMENT")
-        .then(() => {
-          console.log('Comment Removed!');
-        })
-        .catch((error) => {
-          console.error('Error deleting:', error);
-        });
-    } else {
-      console.error('ZPID is not available');
-    }
-  }
-
   onGetMarksClick() {
     if (this.listing.zpid) {
       this.backendService.getBookmarks()
@@ -282,22 +267,6 @@ export class PropertyCardComponent {
       this.backendService.getLikes()
         .then(() => {
           console.log('Likes Retrieved!');
-        })
-        .catch((error) => {
-          console.error('Error deleting:', error);
-        });
-    } else {
-      console.error('ZPID is not available');
-    }
-  }
-
-  // need testing
-
-  onGetUserCommentsClick() {
-    if (this.listing.zpid) {
-      this.backendService.getUserComments(this.listing.zpid)
-        .then(() => {
-          console.log('Comments Retrieved!');
         })
         .catch((error) => {
           console.error('Error deleting:', error);
