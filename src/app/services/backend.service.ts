@@ -58,9 +58,11 @@ export class BackendService {
           zpid: zpid,         
           userID: userID,
           comment: comment,     
-          date: new Date(),
+          time: new Date(),
           name: user.displayName
         });
+
+        console.log(user.displayName);
       } catch (error) {
         console.error('Error adding Comment: ', error);
         throw error;
@@ -248,9 +250,11 @@ export class BackendService {
   }
 
   // get all comments associated with a ZPID
+  // We had an issue with security rules not allowing for access to comments table. Chat-GPT helped solve this bug.
 
   async getZPIDComments(zpid: string){
     const commentsRef = this.firestore.collection('Comment');
+    console.log(commentsRef.ref);
     const commentsSnapshot = await commentsRef.ref
     .where('zpid', '==', zpid)
     .get();
@@ -262,14 +266,17 @@ export class BackendService {
       return [];
     } else {
       const comments = commentsSnapshot.docs.map(doc => {
-        const data = doc.data() as { zpid: string; userID: string; comment: string; time: Timestamp;};
+        const data = doc.data() as { zpid: string; userID: string; comment: string; time: Timestamp; name: string};
         return {
           userID: data.userID,
           zpid: data.zpid,
           comment: data.comment,
-          time: data.time
+          time: data.time,
+          name: data.name
         };
       });
+
+      console.log(comments);
 
       comments.sort((a, b) => b.time.toMillis() - a.time.toMillis());
 

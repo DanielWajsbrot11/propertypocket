@@ -25,6 +25,9 @@ export class PropertyCardComponent {
   currentIndex = 1
   rightIndex = 2;
 
+  comments: any = []
+  comment: string = ""     // comment structure and logic copied from navbar.html and ts files. See reference there. 
+
   singlePropertyData: any | null = null
 
   private savesSubmissionSubscription: Subscription | null = null;
@@ -114,6 +117,8 @@ export class PropertyCardComponent {
         });
 
     }
+
+    await this.onGetListingCommentsClick();
 
 
   }
@@ -206,17 +211,30 @@ export class PropertyCardComponent {
 
   // need test
 
-  onCommentClick() {
+  async onCommentClick() {
     if (this.listing.zpid) {
-      this.backendService.makeComment(this.listing.zpid, "TEST COMMENT")
-        .then(() => {
-          console.log('Comment added successfully!');
-        })
-        .catch((error) => {
-          console.error('Error storing comment:', error);
-        });
-    } else {
-      console.error('ZPID is not available');
+
+      if (this.comment !== "") {
+        await this.backendService.makeComment(this.listing.zpid, this.comment)
+          .then(async () => {
+            console.log('Comment added successfully!');
+
+            let user = await this.angularFireAuth.currentUser;
+
+            let newComment = {
+                comment: this.comment,
+                time: new Date(),                // Confirmed with Chat-GPT this is for the current date right now.
+                name: user?.displayName
+              };
+
+            this.comments.unshift(newComment);        // Chat-GPT for unshift function.
+          })
+          .catch((error) => {
+            console.error('Error storing comment:', error);
+          });
+      } else {
+        console.error('ZPID is not available');
+      }
     }
   }
 
@@ -276,11 +294,13 @@ export class PropertyCardComponent {
     }
   }
 
-  onGetListingCommentsClick() {
+  async onGetListingCommentsClick() {
     if (this.listing.zpid) {
-      this.backendService.getZPIDComments(this.listing.zpid)
-        .then(() => {
+      await this.backendService.getZPIDComments(this.listing.zpid)
+        .then((comments) => {
           console.log('Comments Retrieved!');
+          this.comments = comments;
+          console.log(this.comments);
         })
         .catch((error) => {
           console.error('Error deleting:', error);
