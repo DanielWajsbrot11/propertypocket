@@ -298,9 +298,10 @@ export class PropertyCardComponent {
     if (this.listing.zpid) {
         this.backendService.getZPIDComments(this.listing.zpid)
         .then((comments) => {
-          console.log('Comments Retrieved!');
-          this.comments = comments;
-          console.log(this.comments);
+          this.comments = comments.map((comment: any) => ({
+            ...comment,
+            time: new Date(comment.time.seconds * 1000 + comment.time.nanoseconds / 1_000_000)
+          }));
         })
         .catch((error) => {
           console.error('Error deleting:', error);

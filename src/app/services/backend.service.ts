@@ -151,7 +151,6 @@ export class BackendService {
         console.log('No bookmark found to delete.');
       }
     } else {
-      console.error('User not authenticated');
       throw new Error('User not authenticated');
     }
   }
@@ -168,7 +167,6 @@ export class BackendService {
       let zpids: string[] = [];
 
       if (bookmarksSnapshot.empty) {
-        console.log('No bookmarks found');
         return [];
       } else {
         const bookmarks = bookmarksSnapshot.docs.map(doc => {
@@ -181,11 +179,9 @@ export class BackendService {
 
         bookmarks.sort((a, b) => b.time.toMillis() - a.time.toMillis());
 
-        console.log('Bookmarks sorted by timestamp:', bookmarks);
         return bookmarks;
       }
     } else {
-      console.log('user needs to login')
       return;
     }
   }
@@ -202,7 +198,6 @@ export class BackendService {
       let zpids: string[] = [];
 
       if (likesSnapshot.empty) {
-        console.log('No bookmarks found');
         return [];
       } else {
         const likes = likesSnapshot.docs.map(doc => {
@@ -215,11 +210,9 @@ export class BackendService {
 
         likes.sort((a, b) => b.time.toMillis() - a.time.toMillis());
 
-        console.log('Likes sorted by timestamp:', likes);
         return likes;
       }
     } else {
-      console.log('user needs to login')
       return;
     }
   }
@@ -235,7 +228,6 @@ export class BackendService {
     let zpids: string[] = [];
 
     if (likesSnapshot.empty) {
-      console.log('No Likes found');
       return 0;
     } else {
       const likes = likesSnapshot.docs.map(doc => {
@@ -262,11 +254,11 @@ export class BackendService {
     let zpids: string[] = [];
 
     if (commentsSnapshot.empty) {
-      console.log('No comments found');
       return [];
     } else {
       const comments = commentsSnapshot.docs.map(doc => {
         const data = doc.data() as { zpid: string; userID: string; comment: string; time: Timestamp; name: string};
+
         return {
           userID: data.userID,
           zpid: data.zpid,
@@ -276,11 +268,8 @@ export class BackendService {
         };
       });
 
-      console.log(comments);
-
       comments.sort((a, b) => b.time.toMillis() - a.time.toMillis());
 
-      console.log('Comments sorted by timestamp:', comments);
       return comments;
     }
   }
