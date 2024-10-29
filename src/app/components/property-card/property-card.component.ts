@@ -118,7 +118,7 @@ export class PropertyCardComponent {
 
     }
 
-    await this.onGetListingCommentsClick();
+    this.onGetListingCommentsClick();
 
 
   }
@@ -215,7 +215,7 @@ export class PropertyCardComponent {
     if (this.listing.zpid) {
 
       if (this.comment !== "") {
-        await this.backendService.makeComment(this.listing.zpid, this.comment)
+          this.backendService.makeComment(this.listing.zpid, this.comment)        // According to Chat-GPT, we don't need to await because .then. Same for other comment function below.
           .then(async () => {
             console.log('Comment added successfully!');
 
@@ -296,7 +296,7 @@ export class PropertyCardComponent {
 
   async onGetListingCommentsClick() {
     if (this.listing.zpid) {
-      await this.backendService.getZPIDComments(this.listing.zpid)
+        this.backendService.getZPIDComments(this.listing.zpid)
         .then((comments) => {
           console.log('Comments Retrieved!');
           this.comments = comments;
