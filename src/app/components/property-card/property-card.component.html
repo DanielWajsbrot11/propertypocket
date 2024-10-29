@@ -40,7 +40,7 @@
      <!-- ngFor logic copied from infinite scroll html. See reference there. -->
       <div *ngFor="let comment of comments">
         <p>{{comment.name}}</p>
-        <p>{{comment.time}}</p>
+        <p>{{comment.time | date:'mediumDate'}}</p>
         <p>{{comment.comment}}</p>
       </div>
       <div class="flex flex-row justify-between px-4">
