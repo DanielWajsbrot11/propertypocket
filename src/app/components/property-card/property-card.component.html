@@ -36,25 +36,27 @@
       </div>
     </div>
   </div>
-  <div *ngIf="isModalOpen" class="flex flex-col h-4 rounded-md">
-     <!-- ngFor logic copied from infinite scroll html. See reference there. -->
-      <div *ngFor="let comment of comments">
-        <p>{{comment.name}}</p>
-        <p>{{comment.time | date:'mediumDate'}}</p>
-        <p>{{comment.comment}}</p>
-      </div>
-      <div class="flex flex-row justify-between px-4">
-        <p>Comments<p>
-        <span class="close-btn cursor-pointer" (click)="toggleModal()">&times;</span>
-      </div>
-      <div class="input-container">
-        <input type="text" class="input-field" placeholder="Comment on this listing..." [(ngModel)]="comment">
-        @if (angularFireAuth.authState | async) {
-          <button (click)="onCommentClick()" class="send-button" aria-label="Send message"></button>
-        } @else {
-          <button googleSso (click)="onCommentClick()" class="send-button" aria-label="Send message"></button>
-        }
-      </div>
+  <div *ngIf="isModalOpen">
+    <div class="flex flex-row justify-between px-4">
+      <p>Comments<p>
+      <span class="close-btn cursor-pointer" (click)="toggleModal()">&times;</span>
+    </div>
+    <div class="flex flex-col h-32 overflow-y-scroll rounded-md">
+      <!-- ngFor logic copied from infinite scroll html. See reference there. -->
+       <div *ngFor="let comment of comments" class="px-2 py-1 flex flex-row items-center justify-between bg-white rounded-md text-black border-black">
+         <span class="text-xs">{{comment.name}}</span>
+         <span class="text-sm">{{comment.comment}}</span>
+         <span class="text-xs">{{comment.time | date:'mediumDate'}}</span>
+       </div>
+   </div>
+   <div class="input-container mt-2">
+     <input type="text" class="input-field" placeholder="Comment on this listing..." [(ngModel)]="comment">
+     @if (angularFireAuth.authState | async) {
+       <button (click)="onCommentClick()" class="send-button" aria-label="Send message"></button>
+     } @else {
+       <button googleSso (click)="onCommentClick()" class="send-button" aria-label="Send message"></button>
+     }
+   </div>
   </div>
   <div *ngIf="!isModalOpen" class="property-card">
     <div class="property-features">

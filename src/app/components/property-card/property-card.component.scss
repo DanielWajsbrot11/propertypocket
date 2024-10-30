@@ -108,3 +108,7 @@ svg{
   position: relative;
   top: -2px;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
