@@ -23,9 +23,15 @@
     border-radius: 1rem;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 850px) {
     .data-card{
         width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .data-card{
+        width: 75%;
     }
 }
 
