@@ -238,7 +238,10 @@ export class BackendService {
         };
       });
 
+      console.log(likes);
+      
       const likesSet = new Set(likes);
+      console.log(likesSet);
       return likesSet.size;
     }
   }
