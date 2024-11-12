@@ -230,7 +230,7 @@ export class BackendService {
     if (likesSnapshot.empty) {
       return 0;
     } else {
-      // Chat-GPT helped with understanding the following logic and for getting unique userIDs in an array.
+      // Chat-GPT helped with understanding the following logic and for appendint to and getting unique userIDs in an array.
       const likes = likesSnapshot.docs.map(doc => {
         const data = doc.data() as { zpid: string; userID: string; time: Timestamp;};
         return {
@@ -238,9 +238,9 @@ export class BackendService {
         };
       });
 
-      console.log(likes);
+      let likesArr = likes.map(like => like.userID);
       
-      const likesSet = new Set(likes);
+      const likesSet = new Set(likesArr);
       console.log(likesSet);
       return likesSet.size;
     }
