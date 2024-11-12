@@ -241,7 +241,6 @@ export class BackendService {
       let likesArr = likes.map(like => like.userID);
       
       const likesSet = new Set(likesArr);
-      console.log(likesSet);
       return likesSet.size;
     }
   }
