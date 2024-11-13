@@ -16,7 +16,7 @@ import { filter } from 'rxjs';
 export class NavBarComponent {
 
   zip: string = "";
-  username: string | null = "Sign in";
+  username: string | null = "";
   showZip: string = "block";
   userPhotoUrl: string | null = null;
   
