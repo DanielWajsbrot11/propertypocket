@@ -5,6 +5,9 @@
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
     margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .property-card:hover {
@@ -42,7 +45,7 @@
     justify-content: space-between;
     font-size: 0.9rem;
     color: #555;
-    padding: 0.5rem 1rem;
+    padding: 1.5rem 1rem;
     height: 2rem;
     overflow: hidden; 
     transition: height 2s ease-out;

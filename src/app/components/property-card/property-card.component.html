@@ -1,5 +1,5 @@
 <!-- Chat-GPT showed how to access properties of object with the ?. operator -->
-<div class="flex flex-col">
+<div class="flex flex-col h-full">
   <div class="property-card">
       <div class="property-details">
         <h2 class="property-name">{{listing.streetAddress}}, {{listing.city}}, {{listing.state}}</h2>
@@ -69,7 +69,7 @@
         <span>
           <i class="fas fa-vector-square"></i>{{listing.livingArea}} sqft
         </span>
-        <button class="getImagesBtn" (click)="getPropertyCardImage()">See More Images</button>
+        <button class="getImagesBtn" disabled="moreImagesBtnClicked" (click)="getPropertyCardImage()">See More Images</button>
     </div>
     <div *ngIf='imgClicked' class="flex flex-col items-center justify-center">
       <div class="flex flex-row justify-between">

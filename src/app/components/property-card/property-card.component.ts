@@ -24,6 +24,7 @@ export class PropertyCardComponent {
   leftIndex = 0;
   currentIndex = 1
   rightIndex = 2;
+  moreImagesBtnClicked: boolean = true;
 
   comments: any = []
   comment: string = ""     // comment structure and logic copied from navbar.html and ts files. See reference there. 
@@ -79,6 +80,7 @@ export class PropertyCardComponent {
   }
 
   async getPropertyCardImage(){
+    this.moreImagesBtnClicked = !this.moreImagesBtnClicked;
     this.singlePropertyData = await this.apiSerice.returnSingleProperty(this.listing.zpid);
     console.log(this.listing.zpid);
     console.log(`The length of the photo gallery is ${this.singlePropertyData.responsivePhotos.length}`)
