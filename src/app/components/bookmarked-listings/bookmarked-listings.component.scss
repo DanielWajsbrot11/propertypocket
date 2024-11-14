@@ -91,6 +91,10 @@
 .flip-card-front {
   border-radius: 1rem;
   background-color: #bbb;
+  background-image: url('../../../assests/images/placeholder.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: black;
 }
 
