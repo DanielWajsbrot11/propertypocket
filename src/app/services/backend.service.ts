@@ -62,7 +62,6 @@ export class BackendService {
           name: user.displayName
         });
 
-        console.log(user.displayName);
       } catch (error) {
         console.error('Error adding Comment: ', error);
         throw error;
