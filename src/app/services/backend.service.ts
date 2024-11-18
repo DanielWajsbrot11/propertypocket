@@ -249,7 +249,6 @@ export class BackendService {
 
   async getZPIDComments(zpid: string){
     const commentsRef = this.firestore.collection('Comment');
-    console.log(commentsRef.ref);
     const commentsSnapshot = await commentsRef.ref
     .where('zpid', '==', zpid)
     .get();
