@@ -31,8 +31,6 @@ export class BookmarkedListingsComponent {
     // Timeout copied from api service file. See reference there.
     await new Promise(resolve => setTimeout(resolve, 1000));
     const user = await this.angularFireAuth.currentUser;
-
-    console.log(user);
     
     if (user) {
       let bookmarks = await this.backendService.getBookmarks();
@@ -59,7 +57,6 @@ export class BookmarkedListingsComponent {
         }
       }
 
-      console.log(this.items);
   }
 
 
