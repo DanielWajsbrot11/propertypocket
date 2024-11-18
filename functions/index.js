@@ -23,7 +23,6 @@ const secrets = {
 
 app.get("/gatherConfig", (req, res) => {
   res.json(secrets);
-  console.log(secrets);
 });
 
 exports.api = functions.https.onRequest(app);
