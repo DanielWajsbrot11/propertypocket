@@ -80,10 +80,7 @@ export class PropertyCardComponent {
 
   async getPropertyCardImage(){
     this.singlePropertyData = await this.apiSerice.returnSingleProperty(this.listing.zpid);
-    console.log(this.listing.zpid);
-    console.log(`The length of the photo gallery is ${this.singlePropertyData.responsivePhotos.length}`)
     this.imgClicked = true;
-    console.log(this.listing.zpid);
 
     // Chat-GPT for rounding and complex ternary formatting for lotareavalue and lotareaunits.
     alert(`Date Posted: ${this.singlePropertyData.datePostedString ? this.singlePropertyData.datePostedString : 'N/A'}\nYear Built: ${this.singlePropertyData.yearBuilt ? this.singlePropertyData.yearBuilt : 'N/A'}\nTaxes: $${this.singlePropertyData.resoFacts.taxAnnualAmount ? Math.round(this.singlePropertyData.resoFacts.taxAnnualAmount) : 'N/A'}\nLot size: ${this.singlePropertyData.lotAreaValue && this.singlePropertyData.lotAreaUnits ? `${Number(this.singlePropertyData.lotAreaValue).toFixed(3)} ${this.singlePropertyData.lotAreaUnits}` : 'N/A'}\nHOA: ${this.singlePropertyData.resoFacts.hoaFeeTotal ? this.singlePropertyData.resoFacts.hoaFeeTotal : 'N/A'}\nInsurance: $${this.singlePropertyData.annualHomeownersInsurance ? Math.round(this.singlePropertyData.annualHomeownersInsurance) : 'N/A'}\n\nAgent Name: ${this.singlePropertyData.attributionInfo.agentName ? this.singlePropertyData.attributionInfo.agentName : 'N/A'}\nAgent Email: ${this.singlePropertyData.attributionInfo.agentEmail ? this.singlePropertyData.attributionInfo.agenetEmail : 'N/A'}\nAgent Phone Number: ${this.singlePropertyData.attributionInfo.agentPhoneNumber ? this.singlePropertyData.attributionInfo.agentPhoneNumber : 'N\A'}\n\nDescription:\n${this.singlePropertyData.description}`);
@@ -136,7 +133,6 @@ export class PropertyCardComponent {
     this.bookmarked = !this.bookmarked;
     
     if (this.bookmarked) {
-      console.log("Bookmarked");
       if (this.listing && this.listing.zpid) {
         this.backendService.makeBookmark(this.listing.zpid)
           .then(() => {
@@ -151,7 +147,6 @@ export class PropertyCardComponent {
       }
     }
     else {
-      console.log("Unbookmarked");
       if (this.listing.zpid) {
         this.backendService.deleteBookmark(this.listing.zpid)
           .then(() => {
@@ -172,7 +167,6 @@ export class PropertyCardComponent {
     this.liked = !this.liked;
 
     if (this.liked) {
-      console.log("Liked");
       if (this.listing.zpid) {
         this.backendService.makeLike(this.listing.zpid)
           .then(() => {
@@ -188,7 +182,6 @@ export class PropertyCardComponent {
       }
     }
     else {
-      console.log("Unliked"); 
       if (this.listing.zpid) {
         this.backendService.deleteLike(this.listing.zpid)
           .then(() => {
@@ -217,7 +210,6 @@ export class PropertyCardComponent {
       if (this.comment !== "") {
           this.backendService.makeComment(this.listing.zpid, this.comment)        // According to Chat-GPT, we don't need to await because .then. Same for other comment function below.
           .then(async () => {
-            console.log('Comment added successfully!');
 
             let user = await this.angularFireAuth.currentUser;
 
