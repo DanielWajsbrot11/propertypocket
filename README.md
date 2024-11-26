@@ -1,3 +1,5 @@
+# Link to Firebase-hosted site: https://property-pocket.web.app/
+
 # Directory Structure and Overview
 
 The directory in which our "real" work and code lies is in the src file. The functions folder technically has an Express backend that returns secret values needed for our Angular app, but the main part of our project is everything in src. The environments.ts file in the environments folder is actually where this secret information will be added.
