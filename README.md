@@ -14,8 +14,8 @@ Our app routing module handles routing and displaying the right components for o
 
 
 # References
-Some references/citations of our code are made in-line as comments. In addition to these citations, AI tools like Chat-GPT
-, Gemini, and other AI tools were heavily used for front end HTML and styling as well as for other code logic and debugging. Firebase docs were also used at one point.
+Some references/citations of our code are made in-line as comments. In addition to these citations, AI tools like Chat-GPT, V0 by Vercel,
+Gemini, and other AI tools were heavily used for front end HTML and styling as well as for other code logic and debugging. Firebase docs were also used at one point.
 
 Automatically generated documentation when setting up an Angular app can be found below:
 
